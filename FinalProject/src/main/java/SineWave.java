@@ -10,8 +10,12 @@ public class SineWave extends Wave{
 
     @Override
     public void plotWave(WaveArgIF argChanged) {
+        //Resets image to black background
+        Graphics imageGraphics = image.getGraphics();
+        imageGraphics.setColor(Color.black);
+        imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-        System.out.println("Plot wave being called...");
+//        System.out.println("Plot wave being called...");
 
         //putting new argument into hashtable
         String argType = argChanged.getType();
@@ -19,19 +23,18 @@ public class SineWave extends Wave{
         data.put(argType, argChanged);
 
         //Logic for drawing wave itself
-        int amplitude = 50;
-        int horizontalShift = 100;
-        int verticalShift = 10;
+        double amplitude = data.get("Amplitude").getValue();
+        double horizontalShift = data.get("Horizontal Shift").getValue();
+        double verticalShift = data.get("Vertical Shift").getValue();
         int frequency = 1;
         Polygon wave = new Polygon();
         for (int x = -210; x <= 210; x++) {
 //            wave.addPoint(x + 210, 150 - (int) (scale * Math.sin((x / 210.0) * 2 * Math.PI)));
-            wave.addPoint(x + 210, 150 - verticalShift + (int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI * frequency + horizontalShift)));
+            wave.addPoint(x + 210, (int) (150 - verticalShift + (int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI * frequency + horizontalShift))));
 //            System.out.println("X: " + (x + 210) + ", Y: " + ((int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI))));
         }
 
         //Gets graphics for image and draws on it
-        Graphics imageGraphics = image.getGraphics();
         imageGraphics.setColor(Color.green);
         imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);

@@ -12,6 +12,7 @@ import javax.swing.*;
  * @author Kevin Wang
  */
 public class OscilloscopeWindow extends javax.swing.JFrame {
+    protected static WaveIF sharedWave;
 
     /**
      * Creates new form OscilloscopeWindow
@@ -19,6 +20,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
     public OscilloscopeWindow() {
         initComponents();
         this.setSize(850, 500);
+        sharedWave = new SineWave();
+        viewerPanel.setWave(sharedWave);
     }
 
     /**
@@ -380,7 +383,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
     private javax.swing.JLabel verticalShiftLabel;
     private javax.swing.JSlider verticalSlider;
     private javax.swing.JTextField verticalTextfield;
-    private javax.swing.JPanel viewerPanel;
+    private WavePanel viewerPanel;
     private javax.swing.JCheckBox wavelengthCheckbox;
     private javax.swing.JLabel wavelengthLabel;
     private javax.swing.JTextField wavelengthTextfield;
