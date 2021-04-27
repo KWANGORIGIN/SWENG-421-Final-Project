@@ -6,12 +6,16 @@
 
 
 import javax.swing.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Kevin Wang
  */
-public class OscilloscopeWindow extends javax.swing.JFrame {
+public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
+    protected static WaveIF sharedWave;
+    int yeet = 0;
 
     /**
      * Creates new form OscilloscopeWindow
@@ -19,6 +23,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
     public OscilloscopeWindow() {
         initComponents();
         this.setSize(850, 500);
+        sharedWave = new SineWave();
+        viewerPanel.setWave(sharedWave);
+//        Wave wave = (Wave) sharedWave;
+//        wave.addObserver(this);
     }
 
     /**
@@ -57,7 +65,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
         wavelengthCheckbox = new javax.swing.JCheckBox();
         ppAmplitudeCheckbox = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
         setMaximumSize(new java.awt.Dimension(778, 436));
         setResizable(false);
@@ -295,24 +303,63 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
         JSlider source = (JSlider) evt.getSource();
         if(!source.getValueIsAdjusting()){
             AmpArg arg = new AmpArg(source.getValue());
+//            viewerPanel.repaint();
 
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    sharedWave.plotWave(arg);
+                    return null;
+                }
+
+                @Override
+                protected void done(){
+                    viewerPanel.updateUI();
+                }
+            };
+
+            worker.execute();
         }
     }//GEN-LAST:event_amplitudeSliderStateChanged
 
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            FreqArg arg = new FreqArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_frequencySliderStateChanged
 
     private void horizontalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_horizontalSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            HorizArg arg = new HorizArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_horizontalSliderStateChanged
 
     private void verticalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_verticalSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            VertArg arg = new VertArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_verticalSliderStateChanged
 
     private void scalingSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_scalingSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            ScaleArg arg = new ScaleArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_scalingSliderStateChanged
 
     private void sineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sineButtonActionPerformed
@@ -380,9 +427,15 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
     private javax.swing.JLabel verticalShiftLabel;
     private javax.swing.JSlider verticalSlider;
     private javax.swing.JTextField verticalTextfield;
-    private javax.swing.JPanel viewerPanel;
+    private WavePanel viewerPanel;
     private javax.swing.JCheckBox wavelengthCheckbox;
     private javax.swing.JLabel wavelengthLabel;
     private javax.swing.JTextField wavelengthTextfield;
+
+    @Override
+    public void update(Observable o, Object arg) {
+//        sharedWave = (Wave) o;
+        System.out.println("Update yeet");
+    }
     // End of variables declaration//GEN-END:variables
 }

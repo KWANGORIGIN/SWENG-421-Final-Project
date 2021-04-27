@@ -1,12 +1,12 @@
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
+import java.util.Observable;
 import java.util.concurrent.locks.ReadWriteLock;
 
-public abstract class Wave implements WaveIF {
+public abstract class Wave extends Observable implements WaveIF {
     protected Hashtable<String, WaveArgIF> data;
     protected ReadWriteLock lockManager;
     protected BufferedImage image;
-//    protected WaveIF sourceWave;
 
     public Wave(){
         data = new Hashtable<>();
