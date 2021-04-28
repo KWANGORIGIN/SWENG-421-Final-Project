@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 public abstract class Wave extends Observable implements WaveIF {
     protected Hashtable<String, WaveArgIF> data;
     protected ReadWriteLock lockManager;
-    protected BufferedImage image;
+    protected static BufferedImage image;
 
     public Wave(){
         data = new Hashtable<>();

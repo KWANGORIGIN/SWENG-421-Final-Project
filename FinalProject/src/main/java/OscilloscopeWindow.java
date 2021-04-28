@@ -23,7 +23,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     public OscilloscopeWindow() {
         initComponents();
         this.setSize(850, 500);
-        sharedWave = new SineWave();
+        if(sharedWave == null){
+            System.out.println("Creating wave...");
+            sharedWave = new SineWave();
+        }
         viewerPanel.setWave(sharedWave);
 //        Wave wave = (Wave) sharedWave;
 //        wave.addObserver(this);
@@ -314,7 +317,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
 
                 @Override
                 protected void done(){
-                    viewerPanel.updateUI();
+                    viewerPanel.repaint();
+//                    System.out.println(Thread.holdsLock(sharedWave));
                 }
             };
 
