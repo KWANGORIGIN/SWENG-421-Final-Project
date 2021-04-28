@@ -29,6 +29,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
         viewerPanel.setWave(sharedWave);
         Wave wave = (Wave) sharedWave;
         wave.addObserver(this);
+
+
     }
 
     /**
@@ -40,23 +42,25 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+
+
         viewerPanel = new WavePanel();
         periodTextfield = new javax.swing.JTextField();
         wavelengthTextfield = new javax.swing.JTextField();
-        amplitudeSlider = new javax.swing.JSlider();
-        frequencySlider = new javax.swing.JSlider();
-        horizontalSlider = new javax.swing.JSlider();
-        verticalSlider = new javax.swing.JSlider();
-        amplitudeTextfield = new javax.swing.JTextField();
-        frequencyTextfield = new javax.swing.JTextField();
-        verticalTextfield = new javax.swing.JTextField();
+        scalingSlider = new javax.swing.JSlider(0, 250, 42);
+        amplitudeSlider = new javax.swing.JSlider(0, 100, 0);
+        frequencySlider = new javax.swing.JSlider(0, 100, 0);
+        horizontalSlider = new javax.swing.JSlider(-50, 50, 0);
+        verticalSlider = new javax.swing.JSlider(-50, 50, 0);
+        amplitudeTextfield = new javax.swing.JTextField("0.000");
+        frequencyTextfield = new javax.swing.JTextField("0.000");
+        verticalTextfield = new javax.swing.JTextField("0.000");
         sineButton = new javax.swing.JButton();
         cosineButton = new javax.swing.JButton();
         amplitudeCheckbox = new javax.swing.JCheckBox();
         amplitudeLabel = new javax.swing.JLabel();
-        scalingSlider = new javax.swing.JSlider();
-        scalingTextfield = new javax.swing.JTextField();
-        horizontalTextfield = new javax.swing.JTextField();
+        scalingTextfield = new javax.swing.JTextField("0.000");
+        horizontalTextfield = new javax.swing.JTextField("0.000");
         frequencyLabel = new javax.swing.JLabel();
         horizontalShiftLabel = new javax.swing.JLabel();
         verticalShiftLabel = new javax.swing.JLabel();
@@ -69,7 +73,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
         frequencyCheckbox = new javax.swing.JCheckBox();
         horizontalCheckbox = new javax.swing.JCheckBox();
         parametersLabel = new javax.swing.JLabel();
-        saveImageButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
@@ -190,9 +193,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
         parametersLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         parametersLabel.setText("Parameters:");
 
-        saveImageButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        saveImageButton.setText("Save Wave Image");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,6 +205,14 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(horizontalSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(horizontalTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(horizontalShiftLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(horizontalCheckbox))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(verticalSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
                                 .addComponent(verticalTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,6 +224,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
                                 .addComponent(scalingTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(scalingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cosineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(wavelengthCheckbox)
                             .addComponent(ppAmplitudeCheckbox)
                             .addGroup(layout.createSequentialGroup()
@@ -236,23 +246,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(observeLabel)
                                     .addComponent(frequencyCheckbox)
-                                    .addComponent(amplitudeCheckbox)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(horizontalSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(horizontalTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(horizontalShiftLabel))
-                                    .addComponent(sineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cosineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(horizontalCheckbox)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(saveImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(amplitudeCheckbox)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(periodTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +258,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
                                 .addComponent(wavelengthTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(parametersLabel)))))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,12 +311,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
                             .addComponent(scalingTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(scalingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(sineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(cosineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(saveImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(sineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(cosineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wavelengthCheckbox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -345,8 +336,13 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private void amplitudeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_amplitudeSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
+        AmpArg arg = new AmpArg(source.getValue() / 10.0);
+
+        this.updateAmpOutput(arg.toString());
+
         if(!source.getValueIsAdjusting()){
-            AmpArg arg = new AmpArg(source.getValue());
+            System.out.println(source.getValue());
+
 //            viewerPanel.repaint();
 
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -370,18 +366,47 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
+//        if(!source.getValueIsAdjusting()){
+//            FreqArg arg = new FreqArg(source.getValue());
+//            sharedWave.plotWave(arg);
+//            viewerPanel.repaint();
+//        }
+
+        FreqArg arg = new FreqArg(source.getValue());
+
+        this.updateFreqOutput(arg.toString());
+
         if(!source.getValueIsAdjusting()){
-            FreqArg arg = new FreqArg(source.getValue());
-            sharedWave.plotWave(arg);
-            viewerPanel.repaint();
+            System.out.println(source.getValue());
+
+//            viewerPanel.repaint();
+
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    sharedWave.plotWave(arg);
+                    return null;
+                }
+
+                @Override
+                protected void done(){
+                    viewerPanel.repaint();
+//                    System.out.println(Thread.holdsLock(sharedWave));
+                }
+            };
+
+            worker.execute();
         }
     }//GEN-LAST:event_frequencySliderStateChanged
 
     private void horizontalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_horizontalSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
+        HorizArg arg = new HorizArg(source.getValue()  * (421 / (double) (100) * sharedWave.getData().get("Scale").getValue()));
+
+        this.updateHorizOutput(arg.toString());
+
         if(!source.getValueIsAdjusting()){
-            HorizArg arg = new HorizArg(source.getValue());
             sharedWave.plotWave(arg);
             viewerPanel.repaint();
         }
@@ -390,8 +415,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private void verticalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_verticalSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
+        VertArg arg = new VertArg(source.getValue() * (301 / (double) 100 * sharedWave.getData().get("Scale").getValue()));
+
+        this.updateVertOutput(arg.toString());
+
         if(!source.getValueIsAdjusting()){
-            VertArg arg = new VertArg(source.getValue());
             sharedWave.plotWave(arg);
             viewerPanel.repaint();
         }
@@ -400,8 +428,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private void scalingSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_scalingSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
+        ScaleArg arg = new ScaleArg((source.getValue() * 0.0001)  * (1000.0 / 301));
+        this.updateScaleOutput(arg.toString());
+
         if(!source.getValueIsAdjusting()){
-            ScaleArg arg = new ScaleArg(source.getValue());
             sharedWave.plotWave(arg);
             viewerPanel.repaint();
         }
@@ -420,6 +450,51 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
 //        sharedWave = (Wave) o;
         viewerPanel.repaint();
         System.out.println("Update yeet");
+    }
+
+    public void updateAmpOutput(String a)
+    {
+        synchronized(updateLock)
+        {
+            this.amplitudeTextfield.setText(a);
+        }
+
+    }
+
+    public void updateFreqOutput(String f)
+    {
+        synchronized(updateLock)
+        {
+            this.frequencyTextfield.setText(f);
+        }
+
+    }
+
+    public void updateHorizOutput(String h)
+    {
+        synchronized(updateLock)
+        {
+            this.horizontalTextfield.setText(h);
+        }
+
+    }
+
+    public void updateVertOutput(String v)
+    {
+        synchronized(updateLock)
+        {
+            this.verticalTextfield.setText(v);
+        }
+
+    }
+
+    public void updateScaleOutput(String s)
+    {
+        synchronized(updateLock)
+        {
+            this.scalingTextfield.setText(s);
+        }
+
     }
 
     /**
@@ -476,7 +551,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel periodLabel;
     private javax.swing.JTextField periodTextfield;
     private javax.swing.JCheckBox ppAmplitudeCheckbox;
-    private javax.swing.JButton saveImageButton;
     private javax.swing.JLabel scalingLabel;
     private javax.swing.JSlider scalingSlider;
     private javax.swing.JTextField scalingTextfield;
@@ -488,5 +562,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     private javax.swing.JCheckBox wavelengthCheckbox;
     private javax.swing.JLabel wavelengthLabel;
     private javax.swing.JTextField wavelengthTextfield;
+    private final Object updateLock = new Object();
     // End of variables declaration//GEN-END:variables
 }

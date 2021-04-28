@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public abstract class WaveArg implements WaveArgIF {
     protected double value;
     protected String valueString = "hello";
@@ -11,8 +13,9 @@ public abstract class WaveArg implements WaveArgIF {
         return this.value;
     }
 
-//    public String toString(){
-//        return this.valueString;
-//    }
+    public String toString(){
+        DecimalFormat df = new DecimalFormat("0.000");
+        return df.format(this.getValue());
+    }
 
 }
