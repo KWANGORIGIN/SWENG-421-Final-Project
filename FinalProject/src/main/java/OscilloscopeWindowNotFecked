@@ -60,7 +60,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
         wavelengthCheckbox = new javax.swing.JCheckBox();
         ppAmplitudeCheckbox = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
         setMaximumSize(new java.awt.Dimension(778, 436));
         setResizable(false);
@@ -298,24 +298,49 @@ public class OscilloscopeWindow extends javax.swing.JFrame {
         JSlider source = (JSlider) evt.getSource();
         if(!source.getValueIsAdjusting()){
             AmpArg arg = new AmpArg(source.getValue());
-
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
         }
     }//GEN-LAST:event_amplitudeSliderStateChanged
 
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            FreqArg arg = new FreqArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_frequencySliderStateChanged
 
     private void horizontalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_horizontalSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            HorizArg arg = new HorizArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_horizontalSliderStateChanged
 
     private void verticalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_verticalSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            VertArg arg = new VertArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_verticalSliderStateChanged
 
     private void scalingSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_scalingSliderStateChanged
         // TODO add your handling code here:
+        JSlider source = (JSlider) evt.getSource();
+        if(!source.getValueIsAdjusting()){
+            ScaleArg arg = new ScaleArg(source.getValue());
+            sharedWave.plotWave(arg);
+            viewerPanel.repaint();
+        }
     }//GEN-LAST:event_scalingSliderStateChanged
 
     private void sineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sineButtonActionPerformed

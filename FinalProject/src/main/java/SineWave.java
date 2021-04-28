@@ -10,6 +10,8 @@ public class SineWave extends Wave{
 
     @Override
     public void plotWave(WaveArgIF argChanged) {
+//        System.out.println(data);
+
         //Resets image to black background
         Graphics imageGraphics = image.getGraphics();
         imageGraphics.setColor(Color.black);
@@ -39,6 +41,12 @@ public class SineWave extends Wave{
         imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(wave.xpoints, wave.ypoints, wave.npoints);
+
+        setChanged();
+        notifyObservers();
+
+        System.out.println("Size: " + this.countObservers() + " from: " + Thread.currentThread());
+//        System.out.println(this);
 
         //Cleans up Graphics from memory
         imageGraphics.dispose();

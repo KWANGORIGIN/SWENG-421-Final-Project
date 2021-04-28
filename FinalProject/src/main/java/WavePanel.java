@@ -16,6 +16,7 @@ public class WavePanel extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
+//        System.out.println("Painting..." + wave.getWaveImage());
         g.drawImage(wave.getWaveImage(), 0, 0, this.getWidth(), this.getHeight(), null);
     }
 
