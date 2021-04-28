@@ -1,6 +1,6 @@
 public abstract class WaveArg implements WaveArgIF {
     protected double value;
-    protected String valueString = "";
+    protected String valueString = "hello";
     protected String type;//for setting the String key of Hashtables
 
     public String getType(){

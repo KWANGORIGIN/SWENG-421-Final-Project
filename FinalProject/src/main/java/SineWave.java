@@ -17,7 +17,7 @@ public class SineWave extends Wave{
         imageGraphics.setColor(Color.black);
         imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-//        System.out.println("Plot wave being called...");
+        System.out.println("Plot wave being called...");
 
         //putting new argument into hashtable
         String argType = argChanged.getType();
