@@ -347,13 +347,13 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             e.printStackTrace();
         }
 
+//        System.out.println("Arg observers before: " + arg.getObservers().size());
         if(checkmark){
-            arg.addObserver(this);
+//            System.out.println("-----------------------------------");
+            arg.setShared();
             sharedWave.changeArg(arg);
         }
-        else{
-            arg.removeObserver(this);
-        }
+//        System.out.println("Arg observers after: " + arg.getObservers().size());
         return arg;
     }
 
@@ -367,6 +367,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateAmpOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
+            System.out.println("Number of observers in final argument: " + arg.getObservers().size());
 //            System.out.println(source.getValue());
 //            viewerPanel.repaint();
 
@@ -475,19 +476,39 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void amplitudeCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amplitudeCheckboxActionPerformed
         // TODO add your handling code here:
+        if(amplitudeCheckbox.isSelected()){
+            sharedWave.getArg("Amplitude").addObserver(this);
+        }
+        else{
+            sharedWave.getArg("Amplitude").removeObserver(this);
+
+        }
     }//GEN-LAST:event_amplitudeCheckboxActionPerformed
 
     private void frequencyCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyCheckboxActionPerformed
         // TODO add your handling code here:
+        if(amplitudeCheckbox.isSelected()){
+            sharedWave.getArg("Frequency").addObserver(this);
+        }
+        else{
+            sharedWave.getArg("Frequency").removeObserver(this);
+        }
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
     private void horizontalCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalCheckboxActionPerformed
         // TODO add your handling code here:
+        if(amplitudeCheckbox.isSelected()){
+            sharedWave.getArg("Horizontal Shift").addObserver(this);
+        }
+        else{
+            sharedWave.getArg("Horizontal Shift").removeObserver(this);
+        }
     }//GEN-LAST:event_horizontalCheckboxActionPerformed
 
     @Override
-    public void update() {
+    public void update(WaveArgIF argChanged) {
 //        sharedWave = (Wave) o;
+        localWave.plotWave(argChanged);
         viewerPanel.repaint();
         System.out.println("Update yeet");
     }

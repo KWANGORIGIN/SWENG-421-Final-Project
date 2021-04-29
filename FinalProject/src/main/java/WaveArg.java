@@ -6,10 +6,14 @@ public abstract class WaveArg implements WaveArgIF {
     protected String valueString = "hello";
     protected String type;//for setting the String key of Hashtables
     protected ArrayList<ObserverIF> observers;
+    protected boolean changed;
+    protected boolean shared;
 
     public WaveArg(double value){
         observers = new ArrayList<>();
         this.value = value;
+        this.changed = false;
+        this.shared = false;
     }
 
     public String getType(){
@@ -33,11 +37,52 @@ public abstract class WaveArg implements WaveArgIF {
         observers.remove(o);
     }
 
-    public void notifyObservers(){
+    @Override
+    public void setObservers(ArrayList<ObserverIF> observers){
+        this.observers = observers;
+    }
+
+    @Override
+    public ArrayList<ObserverIF> getObservers(){
+        return this.observers;
+    }
+
+    @Override
+    public boolean hasChanged(){
+        return this.changed;
+    }
+
+    @Override
+    public void setChanged(){
+        this.changed = true;
+    }
+
+    @Override
+    public void setShared(){
+        this.shared = true;
+    }
+
+    @Override
+    public boolean isShared(){
+        return this.shared;
+    }
+
+    @Override
+    public void clearShared(){
+        this.shared = false;
+    }
+
+    @Override
+    public void clearChanged(){
+        this.changed = false;
+    }
+
+    public void notifyObservers(WaveArgIF argChanged){
         for(ObserverIF o : observers){
             System.out.println("Notifying observer...");
-            o.update();
+            o.update(argChanged);
         }
+        clearChanged();
     }
 
 }

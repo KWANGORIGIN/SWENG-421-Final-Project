@@ -23,6 +23,7 @@ public class SineWave extends Wave{
         System.out.println("Plot wave being called...");
         System.out.println(argChanged.getType() + " " + argChanged.getValue());
 
+        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
         //putting new argument into hashtable
         changeArg(argChanged);
 
@@ -58,7 +59,10 @@ public class SineWave extends Wave{
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(wave.xpoints, wave.ypoints, wave.npoints);
 
-        argChanged.notifyObservers();
+        if(!argChanged.hasChanged()){
+            argChanged.setChanged();
+            argChanged.notifyObservers(argChanged);
+        }
 
 //        System.out.println(this);
 
