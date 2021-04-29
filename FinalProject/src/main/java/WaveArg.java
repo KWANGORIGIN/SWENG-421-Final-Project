@@ -7,6 +7,11 @@ public abstract class WaveArg implements WaveArgIF {
     protected String type;//for setting the String key of Hashtables
     protected ArrayList<ObserverIF> observers;
 
+    public WaveArg(double value){
+        observers = new ArrayList<>();
+        this.value = value;
+    }
+
     public String getType(){
         return this.type;
     }
@@ -28,9 +33,9 @@ public abstract class WaveArg implements WaveArgIF {
         observers.remove(o);
     }
 
-    public void notifyObservers(String type){
+    public void notifyObservers(){
         for(ObserverIF o : observers){
-            o.update(type);
+            o.update();
         }
     }
 

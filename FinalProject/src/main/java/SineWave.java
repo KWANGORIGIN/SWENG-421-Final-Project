@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -46,7 +47,7 @@ public class SineWave extends Wave{
         for (int x = -210; x <= 210; x++) {
 //            wave.addPoint(x + 210, 150 - (int) (scale * Math.sin((x / 210.0) * 2 * Math.PI)));
             //wave.addPoint(((x + 210)), (int) (150 + (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
-            wave.addPoint(((x + 210)), (int) (150 - ((amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift) / scale)));
+            wave.addPoint(((x + 210)), (int) (150 + ((amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift) / scale)));
             //wave.addPoint((int)((x - 210) * scale), (int) (150 - (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
 //            System.out.println("X: " + (x + 210) + ", Y: " + ((int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI))));
         }
@@ -57,10 +58,6 @@ public class SineWave extends Wave{
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(wave.xpoints, wave.ypoints, wave.npoints);
 
-        setChanged();
-        notifyObservers();
-
-        System.out.println("Size: " + this.countObservers() + " from: " + Thread.currentThread());
 //        System.out.println(this);
 
         //Cleans up Graphics from memory

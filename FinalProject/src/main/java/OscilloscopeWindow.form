@@ -370,6 +370,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Observe Frequency"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frequencyCheckboxActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="horizontalCheckbox">
       <Properties>
@@ -378,6 +381,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Observe Horizontal Shift"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="horizontalCheckboxActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="parametersLabel">
       <Properties>

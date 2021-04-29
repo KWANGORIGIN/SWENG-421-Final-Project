@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF {
     protected volatile static WaveIF sharedWave;
     protected WaveIF localWave;
+    private final Object updateLock = new Object();
 
     /**
      * Creates new form OscilloscopeWindow
@@ -39,25 +40,24 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
-
+//        viewerPanel = new javax.swing.JPanel();
         viewerPanel = new WavePanel();
         periodTextfield = new javax.swing.JTextField();
         wavelengthTextfield = new javax.swing.JTextField();
-        scalingSlider = new javax.swing.JSlider(0, 250, 42);
-        amplitudeSlider = new javax.swing.JSlider(0, 100, 0);
-        frequencySlider = new javax.swing.JSlider(0, 100, 0);
-        horizontalSlider = new javax.swing.JSlider(-50, 50, 0);
-        verticalSlider = new javax.swing.JSlider(-50, 50, 0);
-        amplitudeTextfield = new javax.swing.JTextField("0.000");
-        frequencyTextfield = new javax.swing.JTextField("0.000");
-        verticalTextfield = new javax.swing.JTextField("0.000");
+        amplitudeSlider = new javax.swing.JSlider();
+        frequencySlider = new javax.swing.JSlider();
+        horizontalSlider = new javax.swing.JSlider();
+        verticalSlider = new javax.swing.JSlider();
+        amplitudeTextfield = new javax.swing.JTextField();
+        frequencyTextfield = new javax.swing.JTextField();
+        verticalTextfield = new javax.swing.JTextField();
         sineButton = new javax.swing.JButton();
         cosineButton = new javax.swing.JButton();
         amplitudeCheckbox = new javax.swing.JCheckBox();
         amplitudeLabel = new javax.swing.JLabel();
-        scalingTextfield = new javax.swing.JTextField("0.000");
-        horizontalTextfield = new javax.swing.JTextField("0.000");
+        scalingSlider = new javax.swing.JSlider();
+        scalingTextfield = new javax.swing.JTextField();
+        horizontalTextfield = new javax.swing.JTextField();
         frequencyLabel = new javax.swing.JLabel();
         horizontalShiftLabel = new javax.swing.JLabel();
         verticalShiftLabel = new javax.swing.JLabel();
@@ -183,9 +183,19 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         frequencyCheckbox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         frequencyCheckbox.setText("Observe Frequency");
+        frequencyCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyCheckboxActionPerformed(evt);
+            }
+        });
 
         horizontalCheckbox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         horizontalCheckbox.setText("Observe Horizontal Shift");
+        horizontalCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horizontalCheckboxActionPerformed(evt);
+            }
+        });
 
         parametersLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         parametersLabel.setText("Parameters:");
@@ -322,10 +332,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void amplitudeCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amplitudeCheckboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_amplitudeCheckboxActionPerformed
-
     private void horizontalTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalTextfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_horizontalTextfieldActionPerformed
@@ -345,7 +351,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             arg.addObserver(this);
             sharedWave.changeArg(arg);
         }
-
+        else{
+            arg.removeObserver(this);
+        }
         return arg;
     }
 
@@ -427,7 +435,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateHorizOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            sharedWave.plotWave(arg);
+            localWave.plotWave(arg);
             viewerPanel.repaint();
         }
     }//GEN-LAST:event_horizontalSliderStateChanged
@@ -440,7 +448,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateVertOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            sharedWave.plotWave(arg);
+            localWave.plotWave(arg);
             viewerPanel.repaint();
         }
     }//GEN-LAST:event_verticalSliderStateChanged
@@ -452,7 +460,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateScaleOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            sharedWave.plotWave(arg);
+            localWave.plotWave(arg);
             viewerPanel.repaint();
         }
     }//GEN-LAST:event_scalingSliderStateChanged
@@ -465,8 +473,20 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
     }//GEN-LAST:event_cosineButtonActionPerformed
 
+    private void amplitudeCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amplitudeCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amplitudeCheckboxActionPerformed
+
+    private void frequencyCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_frequencyCheckboxActionPerformed
+
+    private void horizontalCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_horizontalCheckboxActionPerformed
+
     @Override
-    public void update(String type) {
+    public void update() {
 //        sharedWave = (Wave) o;
         viewerPanel.repaint();
         System.out.println("Update yeet");
@@ -582,6 +602,5 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JCheckBox wavelengthCheckbox;
     private javax.swing.JLabel wavelengthLabel;
     private javax.swing.JTextField wavelengthTextfield;
-    private final Object updateLock = new Object();
     // End of variables declaration//GEN-END:variables
 }
