@@ -35,6 +35,7 @@ public abstract class WaveArg implements WaveArgIF {
 
     public void notifyObservers(){
         for(ObserverIF o : observers){
+            System.out.println("Notifying observer...");
             o.update();
         }
     }
