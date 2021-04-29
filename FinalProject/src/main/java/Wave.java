@@ -31,11 +31,10 @@ public abstract class Wave implements WaveIF {
 
     @Override
     public void changeArg(WaveArgIF arg){
-//        if(data.get(arg.getType()).getObservers().size() != 0){
         if(arg.isShared() && data.get(arg.getType()).getObservers().size() != 0){
             ArrayList<ObserverIF> observers = data.get(arg.getType()).getObservers();
             arg.setObservers(observers);
-            System.out.println("Observers: " + observers.size());
+//            System.out.println("Observers: " + observers.size());
         }
         data.remove(arg.getType());
         data.put(arg.getType(), arg);

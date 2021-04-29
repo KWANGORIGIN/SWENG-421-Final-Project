@@ -13,20 +13,18 @@ public class SineWave extends Wave{
 
     @Override
     public void plotWave(WaveArgIF argChanged) {
-//        System.out.println(data);
-
         //Resets image to black background
         Graphics imageGraphics = image.getGraphics();
         imageGraphics.setColor(Color.black);
         imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-        System.out.println("Plot wave being called...");
-        System.out.println(argChanged.getType() + " " + argChanged.getValue());
+//        System.out.println("Plot wave being called...");
+//        System.out.println(argChanged.getType() + " " + argChanged.getValue());
+//
+//        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
 
-        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
         //putting new argument into hashtable
         changeArg(argChanged);
-
 
 //        //Logic for drawing wave itself
 //        double amplitude = data.get("Amplitude").getValue() / 10.0;
@@ -63,8 +61,6 @@ public class SineWave extends Wave{
             argChanged.setChanged();
             argChanged.notifyObservers(argChanged);
         }
-
-//        System.out.println(this);
 
         //Cleans up Graphics from memory
         imageGraphics.dispose();
