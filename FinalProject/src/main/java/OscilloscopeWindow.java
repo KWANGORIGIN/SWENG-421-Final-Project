@@ -331,19 +331,22 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     }//GEN-LAST:event_horizontalTextfieldActionPerformed
 
     private WaveArgIF createArg(String type, String className, double value, boolean checkmark){
-        if(!checkmark){
-            WaveArgIF arg = null;
-            try {
-                Class<?> c = Class.forName(className);
-                Constructor<?> construct = c.getConstructor(double.class);
-                arg = (WaveArgIF) construct.newInstance(value);
-            } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                System.out.println("Failed to create arg " + className + "...");
-                e.printStackTrace();
-            }
-            return arg;
+        WaveArgIF arg = null;
+        try {
+            Class<?> c = Class.forName(className);
+            Constructor<?> construct = c.getConstructor(double.class);
+            arg = (WaveArgIF) construct.newInstance(value);
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            System.out.println("Failed to create arg " + className + "...");
+            e.printStackTrace();
         }
-        return sharedWave.getArg(type);
+
+        if(checkmark){
+            arg.addObserver(this);
+            sharedWave.changeArg(arg);
+        }
+
+        return arg;
     }
 
     private void amplitudeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_amplitudeSliderStateChanged
@@ -356,8 +359,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateAmpOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            System.out.println(source.getValue());
-
+//            System.out.println(source.getValue());
 //            viewerPanel.repaint();
 
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -389,11 +391,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
 //        FreqArg arg = new FreqArg(source.getValue());
 
-        FreqArg arg = (FreqArg) createArg("Frequency", "FreqArg", source.getValue() / 10.0, frequencyCheckbox.isSelected());
+        FreqArg arg = (FreqArg) createArg("Frequency", "FreqArg", source.getValue(), frequencyCheckbox.isSelected());
         this.updateFreqOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            System.out.println(source.getValue());
+//            System.out.println(source.getValue());
 
 //            viewerPanel.repaint();
 
@@ -418,7 +420,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void horizontalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_horizontalSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
-        HorizArg arg = new HorizArg(source.getValue()  * (421 / (double) (100) * sharedWave.getData().get("Scale").getValue()));
+//        HorizArg arg = new HorizArg(source.getValue()  * (421 / (double) (100) * sharedWave.getData().get("Scale").getValue()));
+
+        HorizArg arg = (HorizArg) createArg("Horizontal Shift", "HorizArg", source.getValue()  * (421 / (double) (100) * sharedWave.getData().get("Scale").getValue()), horizontalCheckbox.isSelected());
 
         this.updateHorizOutput(arg.toString());
 
@@ -462,7 +466,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     }//GEN-LAST:event_cosineButtonActionPerformed
 
     @Override
-    public void update() {
+    public void update(String type) {
 //        sharedWave = (Wave) o;
         viewerPanel.repaint();
         System.out.println("Update yeet");

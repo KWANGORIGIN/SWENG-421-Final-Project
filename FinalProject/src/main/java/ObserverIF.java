@@ -1,3 +1,3 @@
 public interface ObserverIF {
-    void update();
+    void update(String type);
 }
