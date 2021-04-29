@@ -1,6 +1,9 @@
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import static java.lang.Math.sin;
 
 public abstract class Wave implements WaveIF {
     protected Hashtable<String, WaveArgIF> data;
@@ -22,6 +25,32 @@ public abstract class Wave implements WaveIF {
         data.put(scale.getType(), scale);
 
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
+    }
+
+    @Override
+    public void plotWave(WaveArgIF argChanged){
+        //Resets image to black background
+        Graphics imageGraphics = image.getGraphics();
+        imageGraphics.setColor(Color.black);
+        imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+
+//        System.out.println("Plot wave being called...");
+//        System.out.println(argChanged.getType() + " " + argChanged.getValue());
+//
+//        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
+
+        //putting new argument into hashtable
+        changeArg(argChanged);
+
+        drawWave(imageGraphics, data);
+
+        if(!argChanged.hasChanged()){
+            argChanged.setChanged();
+            argChanged.notifyObservers(argChanged);
+        }
+
+        //Cleans up Graphics from memory
+        imageGraphics.dispose();
     }
 
     @Override

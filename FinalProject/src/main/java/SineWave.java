@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Hashtable;
 
 import static java.lang.Math.sin;
 
@@ -12,28 +13,15 @@ public class SineWave extends Wave{
     }
 
     @Override
-    public void plotWave(WaveArgIF argChanged) {
-        //Resets image to black background
-        Graphics imageGraphics = image.getGraphics();
-        imageGraphics.setColor(Color.black);
-        imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+    public void drawWave(Graphics imageGraphics, Hashtable<String, WaveArgIF> data){
 
-//        System.out.println("Plot wave being called...");
-//        System.out.println(argChanged.getType() + " " + argChanged.getValue());
-//
-//        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
-
-        //putting new argument into hashtable
-        changeArg(argChanged);
-
-//        //Logic for drawing wave itself
+        //        //Logic for drawing wave itself
 //        double amplitude = data.get("Amplitude").getValue() / 10.0;
 //        int frequency = (int) data.get("Frequency").getValue();
 //        double scale = (data.get("Scale").getValue() * 0.0001)  * (1000.0 / 301);
 //        System.out.println(scale);
 //        double horizontalShift = data.get("Horizontal Shift").getValue() * (421 / (double) (100) * scale);
 //        double verticalShift = data.get("Vertical Shift").getValue() * (301 / (double) 100 * scale);
-
 
         //Logic for drawing wave itself
         double amplitude = data.get("Amplitude").getValue();
@@ -56,14 +44,6 @@ public class SineWave extends Wave{
         imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(wave.xpoints, wave.ypoints, wave.npoints);
-
-        if(!argChanged.hasChanged()){
-            argChanged.setChanged();
-            argChanged.notifyObservers(argChanged);
-        }
-
-        //Cleans up Graphics from memory
-        imageGraphics.dispose();
     }
 
     @Override
