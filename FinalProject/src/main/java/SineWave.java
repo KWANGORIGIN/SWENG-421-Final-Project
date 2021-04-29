@@ -23,11 +23,7 @@ public class SineWave extends Wave{
         System.out.println(argChanged.getType() + " " + argChanged.getValue());
 
         //putting new argument into hashtable
-        String argType = argChanged.getType();
-
-        System.out.println(argType);
-        data.remove(argType);
-        data.put(argType, argChanged);
+        changeArg(argChanged);
 
 
 //        //Logic for drawing wave itself

@@ -6,15 +6,16 @@
 
 
 import javax.swing.*;
-import java.util.Observable;
-import java.util.Observer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  *
  * @author Kevin Wang
  */
-public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
+public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF {
     protected volatile static WaveIF sharedWave;
+    protected WaveIF localWave;
 
     /**
      * Creates new form OscilloscopeWindow
@@ -23,14 +24,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
         initComponents();
         this.setSize(1025, 500);
         if(sharedWave == null){
-//            System.out.println("Creating wave...");
             sharedWave = new SineWave();
         }
-        viewerPanel.setWave(sharedWave);
-        Wave wave = (Wave) sharedWave;
-        wave.addObserver(this);
-
-
+        localWave = new SineWave();
+        viewerPanel.setWave(localWave);
     }
 
     /**
@@ -333,10 +330,28 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_horizontalTextfieldActionPerformed
 
+    private WaveArgIF createArg(String type, String className, double value, boolean checkmark){
+        if(!checkmark){
+            WaveArgIF arg = null;
+            try {
+                Class<?> c = Class.forName(className);
+                Constructor<?> construct = c.getConstructor(double.class);
+                arg = (WaveArgIF) construct.newInstance(value);
+            } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                System.out.println("Failed to create arg " + className + "...");
+                e.printStackTrace();
+            }
+            return arg;
+        }
+        return sharedWave.getArg(type);
+    }
+
     private void amplitudeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_amplitudeSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
-        AmpArg arg = new AmpArg(source.getValue() / 10.0);
+//        AmpArg arg = new AmpArg(source.getValue() / 10.0);
+
+        AmpArg arg = (AmpArg) createArg("Amplitude", "AmpArg", source.getValue() / 10.0, amplitudeCheckbox.isSelected());
 
         this.updateAmpOutput(arg.toString());
 
@@ -348,7 +363,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-                    sharedWave.plotWave(arg);
+                    localWave.plotWave(arg);
                     return null;
                 }
 
@@ -372,8 +387,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
 //            viewerPanel.repaint();
 //        }
 
-        FreqArg arg = new FreqArg(source.getValue());
+//        FreqArg arg = new FreqArg(source.getValue());
 
+        FreqArg arg = (FreqArg) createArg("Frequency", "FreqArg", source.getValue() / 10.0, frequencyCheckbox.isSelected());
         this.updateFreqOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
@@ -384,7 +400,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-                    sharedWave.plotWave(arg);
+                    localWave.plotWave(arg);
                     return null;
                 }
 
@@ -446,7 +462,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_cosineButtonActionPerformed
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update() {
 //        sharedWave = (Wave) o;
         viewerPanel.repaint();
         System.out.println("Update yeet");

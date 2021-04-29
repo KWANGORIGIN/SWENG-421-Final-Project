@@ -28,4 +28,15 @@ public abstract class Wave extends Observable implements WaveIF {
     public Hashtable<String, WaveArgIF> getData() {
         return this.data;
     }
+
+    @Override
+    public void changeArg(WaveArgIF arg){
+        data.remove(arg.getType());
+        data.put(arg.getType(), arg);
+    }
+
+    @Override
+    public WaveArgIF getArg(String arg){
+        return data.get(arg);
+    }
 }
