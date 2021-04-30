@@ -47,6 +47,16 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateVertOutput(localWave.getArg("Vertical Shift").toString());
         this.updateScaleOutput(localWave.getArg("Scale").toString());
 
+        compositeToggleButton.setEnabled(false);
+        resetCompositeButton.setEnabled(false);
+//        this.showWavelengthButton.setEnabled(false);
+//        this.ppAmplitudeToggleButton.setEnabled(false);
+//
+//        if(localWave != null)
+//        {
+//            this.shw
+//        }
+
 //        Scanner reader = new Scanner(System.in);
 //        reader.next();
 //
@@ -243,8 +253,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         });
 
         compositeToggleButton.setText("Show Composite Wave");
-        compositeToggleButton.setEnabled(false);
-        resetCompositeButton.setEnabled(false);
         compositeToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 compositeToggleButtonActionPerformed(evt);
@@ -504,10 +512,47 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void sineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sineButtonActionPerformed
         // TODO add your handling code here:
+
+            System.out.println("NEW SINE");
+            //this.savedWave = (WaveIF) this.localWave.cloneWave();
+            this.localWave = new SineWave();
+            this.resetControls();
+
+            if(this.showWavelengthButton.isSelected())
+            {
+                this.localWave = new WaveDecorator(new Wavelength(), localWave);
+            }
+
+            if(this.ppAmplitudeToggleButton.isSelected())
+            {
+                this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+            }
+            this.viewerPanel.setWave(this.localWave);
+            viewerPanel.repaint();
+
+
     }//GEN-LAST:event_sineButtonActionPerformed
 
     private void cosineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosineButtonActionPerformed
         // TODO add your handling code here:
+        System.out.println("NEW COSINE");
+        //this.savedWave = (WaveIF) this.localWave.cloneWave();
+        this.localWave = new CosineWave();
+        this.resetControls();
+
+        if(this.showWavelengthButton.isSelected())
+        {
+            this.localWave = new WaveDecorator(new Wavelength(), localWave);
+        }
+
+        if(this.ppAmplitudeToggleButton.isSelected())
+        {
+            this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+        }
+
+        this.viewerPanel.setWave(this.localWave);
+        viewerPanel.repaint();
+
     }//GEN-LAST:event_cosineButtonActionPerformed
 
     private void amplitudeCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amplitudeCheckboxActionPerformed
@@ -519,6 +564,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             if(arg.getValue() != 0){
                 this.updateAmpOutput(arg.toString());
                 amplitudeSlider.setValue((int) (arg.getValue() * 10));
+                System.out.println(arg.toString());
                 localWave.plotWave(arg);
                 viewerPanel.repaint();
             }
@@ -570,7 +616,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
         this.compositeWave.addWave(localWave.cloneWave());
-        this.compositeToggleButton.setEnabled(true);
+        this.enableCompositeToggle();
         this.resetCompositeButton.setEnabled(true);
 
 
@@ -583,11 +629,15 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             //this.savedWave = (WaveIF) this.localWave.cloneWave();
             this.localWave = this.compositeWave;
             this.addToCompositeButton.setEnabled(false);
+            this.ppAmplitudeToggleButton.setEnabled(false);
+            this.showWavelengthButton.setEnabled(false);
         }
         else
         {
             this.localWave = this.compositeWave.getLast().cloneWave();
             this.addToCompositeButton.setEnabled(true);
+            this.ppAmplitudeToggleButton.setEnabled(true);
+            this.showWavelengthButton.setEnabled(true);
         }
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();
@@ -604,6 +654,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.compositeWave.clear();
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();
+        this.showWavelengthButton.setEnabled(true);
+        this.ppAmplitudeToggleButton.setEnabled(true);
         System.out.println("here");
 
     }//GEN-LAST:event_resetCompositeButtonActionPerformed
@@ -613,11 +665,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         if(ppAmplitudeToggleButton.isSelected())
         {
             this.addToCompositeButton.setEnabled(false);
-            System.out.println("new here?");
+            this.compositeToggleButton.setEnabled(false);
 //            WaveIF tempWave = localWave.cloneWave();
 //            System.out.println("temp: " + tempWave);
             this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
-            System.out.println("new there");
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
 
@@ -626,7 +677,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         }
         else
         {
-            System.out.println("here");
             this.localWave = ((WaveDecorator) localWave).rewrap("PPAmp");
             //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
             viewerPanel.setWave(localWave);
@@ -636,6 +686,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             if(!(localWave instanceof WaveDecorator))
             {
                 this.addToCompositeButton.setEnabled(true);
+                this.enableCompositeToggle();
             }
         }
     }//GEN-LAST:event_ppAmplitudeToggleButtonActionPerformed
@@ -646,6 +697,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         if(showWavelengthButton.isSelected())
         {
             this.addToCompositeButton.setEnabled(false);
+            this.compositeToggleButton.setEnabled(false);
             this.localWave = new WaveDecorator(new Wavelength(), localWave);
             viewerPanel.setWave(localWave);
             System.out.println("boutta paint");
@@ -666,6 +718,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             if(!(localWave instanceof WaveDecorator))
             {
                 this.addToCompositeButton.setEnabled(true);
+                this.enableCompositeToggle();
             }
         }
 
@@ -677,6 +730,14 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             @Override
             protected Void doInBackground() throws Exception {
                 localWave.plotWave(arg);
+
+                if(arg instanceof ScaleArg)
+                {
+                    for(int i = 0; i < compositeWave.getWaves().size(); i++)
+                    {
+                        compositeWave.getWaves().get(i).plotWave(arg);
+                    }
+                }
                 return null;
             }
 
@@ -702,11 +763,12 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         localWave.plotWave(argChanged);
         viewerPanel.repaint();
-//        System.out.println("Update yeet");
+        //System.out.println("Update yeet");
     }
 
     public void updateAmpOutput(String a)
     {
+        System.out.println("updateAmp");
         synchronized(updateLock)
         {
             this.amplitudeTextfield.setText(a);
@@ -748,6 +810,32 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             this.scalingTextfield.setText(s);
         }
 
+    }
+
+    public void enableCompositeToggle()
+    {
+        if(!this.compositeWave.getWaves().isEmpty() && !(this.showWavelengthButton.isSelected()) && !(this.ppAmplitudeToggleButton.isSelected()))
+        {
+            this.compositeToggleButton.setEnabled(true);
+        }
+    }
+    public void resetControls()
+    {
+        this.updateAmpOutput(this.localWave.getArg("Amplitude").toString());
+        this.updateFreqOutput(this.localWave.getArg("Frequency").toString());
+        this.updateHorizOutput(this.localWave.getArg("Horizontal Shift").toString());
+        this.updateVertOutput(this.localWave.getArg("Vertical Shift").toString());
+        this.updateScaleOutput(this.localWave.getArg("Scale").toString());
+
+        System.out.println(this.localWave.getArg("Amplitude").getValue());
+        this.amplitudeSlider.setValue((int) this.localWave.getArg("Amplitude").getValue() * 10);
+        this.frequencySlider.setValue((int) this.localWave.getArg("Frequency").getValue());
+        this.horizontalSlider.setValue((int) (this.localWave.getArg("Horizontal Shift").getValue() / (421 / (double) (100) * localWave.getData().get("Scale").getValue())));
+        this.verticalSlider.setValue((int) (this.localWave.getArg("Vertical Shift").getValue() / (301 / (double) 100 * localWave.getData().get("Scale").getValue())));
+        this.scalingSlider.setValue((int) (this.localWave.getArg("Scale").getValue() / (0.0001)  / (1000.0 / 301)));
+
+        this.showWavelengthButton.setEnabled(true);
+        this.ppAmplitudeToggleButton.setEnabled(true);
     }
 
     /**

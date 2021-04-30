@@ -7,10 +7,8 @@ import static java.lang.Math.sin;
 
 public class CosineWave extends Wave{
 
-    public CosineWave(){
-        super();
-        plotWave(new ScaleArg(0.015));
-    }
+    public CosineWave()
+    {}
 
     public CosineWave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
         super(data, image, points);
@@ -56,8 +54,8 @@ public class CosineWave extends Wave{
         }
 
         //Gets graphics for image and draws on it
-        imageGraphics.setColor(Color.green);
-        imageGraphics.drawLine(0, 150, 420, 150);
+//        imageGraphics.setColor(Color.green);
+//        imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(this.points.xpoints, this.points.ypoints, this.points.npoints);
     }

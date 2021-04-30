@@ -125,4 +125,9 @@ public class CompositeWave implements WaveIF{
     {
         this.waves.clear();
     }
+
+    public ArrayList<WaveIF> getWaves()
+    {
+        return this.waves;
+    }
 }

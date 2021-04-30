@@ -29,6 +29,8 @@ public abstract class Wave implements WaveIF{
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
         points = new Polygon();
         System.out.println("NEW WAVE");
+
+        //this.plotWave(new AmpArg(0));
     }
 
     public Wave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
@@ -59,10 +61,6 @@ public abstract class Wave implements WaveIF{
     @Override
     public void plotWave(WaveArgIF argChanged){
         //Resets image to black background
-
-        //WHY DOES THIS BREAK WITH THE DECORATOR OBJECT?????
-
-        //System.out.println("PLOTTING WAVE");
         double amplitude = data.get("Amplitude").getValue();
         int frequency = (int) data.get("Frequency").getValue();
         double scale = data.get("Scale").getValue();
@@ -80,6 +78,9 @@ public abstract class Wave implements WaveIF{
         imageGraphics.setColor(Color.black);
         imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
+        imageGraphics.setColor(Color.green);
+        imageGraphics.drawLine(0, 150, 420, 150);
+
 //        System.out.println("Plot wave being called...");
 //        System.out.println(argChanged.getType() + " " + argChanged.getValue());
 //
@@ -90,6 +91,7 @@ public abstract class Wave implements WaveIF{
 
 
         changeArg(argChanged);
+        System.out.println("ArgChanged: " + argChanged.getValue());
 
         drawWave(imageGraphics, data);
 

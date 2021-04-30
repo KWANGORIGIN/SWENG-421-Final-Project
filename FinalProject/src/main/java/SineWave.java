@@ -7,10 +7,8 @@ import static java.lang.Math.sin;
 
 public class SineWave extends Wave{
 
-    public SineWave(){
-        super();
-        plotWave(new ScaleArg(0.015));
-    }
+    public SineWave()
+    {}
 
     public SineWave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
         super(data, image, points);
@@ -41,6 +39,7 @@ public class SineWave extends Wave{
 
         //Logic for drawing wave itself
         double amplitude = data.get("Amplitude").getValue();
+        System.out.println(amplitude);
         int frequency = (int) data.get("Frequency").getValue();
         double scale = data.get("Scale").getValue();
         double horizontalShift = data.get("Horizontal Shift").getValue();
@@ -61,8 +60,8 @@ public class SineWave extends Wave{
         }
 
         //Gets graphics for image and draws on it
-        imageGraphics.setColor(Color.green);
-        imageGraphics.drawLine(0, 150, 420, 150);
+//        imageGraphics.setColor(Color.green);
+//        imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);
         imageGraphics.drawPolyline(this.points.xpoints, this.points.ypoints, this.points.npoints);
     }

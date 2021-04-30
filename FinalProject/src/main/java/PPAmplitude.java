@@ -24,17 +24,22 @@ public class PPAmplitude extends VerticalRuler {
 
         for (int i = 1; i < 420; i++)
         {
-            System.out.println("in loop");
-            System.out.println(sourceWave.getPoints().ypoints[i]);
-            if (sourceWave.getPoints().ypoints[i] > max) //note that greater than in this case means lower on the graph
+            try
             {
-                max = sourceWave.getPoints().ypoints[i];
+                if (sourceWave.getPoints().ypoints[i] > max) //note that greater than in this case means lower on the graph
+                {
+                    max = sourceWave.getPoints().ypoints[i];
+                }
+
+                if(sourceWave.getPoints().ypoints[i] < min)
+                {
+                    min = sourceWave.getPoints().ypoints[i];
+                }
+            } catch(IndexOutOfBoundsException e)
+            {
+                System.err.println("not enough data");
             }
 
-            if(sourceWave.getPoints().ypoints[i] < min)
-            {
-                min = sourceWave.getPoints().ypoints[i];
-            }
         }
 //
         System.out.println(max);
