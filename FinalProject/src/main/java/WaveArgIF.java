@@ -7,5 +7,5 @@ public interface WaveArgIF extends ObservableIF{
     boolean isShared();
     void setShared();
     void clearShared();
-//    String toString();
+    String toString();
 }

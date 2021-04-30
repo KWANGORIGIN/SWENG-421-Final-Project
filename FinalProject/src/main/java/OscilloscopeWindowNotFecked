@@ -29,6 +29,12 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         }
         localWave = new SineWave();
         viewerPanel.setWave(localWave);
+
+        this.updateAmpOutput(localWave.getArg("Amplitude").toString());
+        this.updateFreqOutput(localWave.getArg("Frequency").toString());
+        this.updateHorizOutput(localWave.getArg("Horizontal Shift").toString());
+        this.updateVertOutput(localWave.getArg("Vertical Shift").toString());
+        this.updateScaleOutput(localWave.getArg("Scale").toString());
     }
 
     /**
@@ -347,6 +353,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             e.printStackTrace();
         }
 
+        System.out.println(arg.getType() + " " + value);
+
         if(checkmark){
             arg.setShared();
             sharedWave.changeArg(arg);
@@ -361,19 +369,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateAmpOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-                    localWave.plotWave(arg);
-                    return null;
-                }
-
-                @Override
-                protected void done(){
-                    viewerPanel.repaint();
-                }
-            };
-            worker.execute();
+            paintWithWorker(arg);
         }
     }//GEN-LAST:event_amplitudeSliderStateChanged
 
@@ -384,42 +380,20 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateFreqOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-                    localWave.plotWave(arg);
-                    return null;
-                }
-
-                @Override
-                protected void done(){
-                    viewerPanel.repaint();
-                }
-            };
-            worker.execute();
+            paintWithWorker(arg);
         }
     }//GEN-LAST:event_frequencySliderStateChanged
 
     private void horizontalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_horizontalSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
-        HorizArg arg = (HorizArg) createArg("Horizontal Shift", "HorizArg", source.getValue()  * (421 / (double) (100) * sharedWave.getData().get("Scale").getValue()), horizontalCheckbox.isSelected());
+        HorizArg arg = (HorizArg) createArg("Horizontal Shift", "HorizArg", source.getValue()  * (421 / (double) (100) * localWave.getData().get("Scale").getValue()), horizontalCheckbox.isSelected());
         this.updateHorizOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-                    localWave.plotWave(arg);
-                    return null;
-                }
-
-                @Override
-                protected void done(){
-                    viewerPanel.repaint();
-                }
-            };
-            worker.execute();
+            System.out.println("Horizontal source: " + source.getValue());
+            int sourceValue = source.getValue();
+            paintWithWorker(arg);
         }
     }//GEN-LAST:event_horizontalSliderStateChanged
 
@@ -431,8 +405,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateVertOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            localWave.plotWave(arg);
-            viewerPanel.repaint();
+            paintWithWorker(arg);
         }
     }//GEN-LAST:event_verticalSliderStateChanged
 
@@ -443,8 +416,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateScaleOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            localWave.plotWave(arg);
-            viewerPanel.repaint();
+            paintWithWorker(arg);
         }
     }//GEN-LAST:event_scalingSliderStateChanged
 
@@ -458,36 +430,91 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void amplitudeCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amplitudeCheckboxActionPerformed
         // TODO add your handling code here:
+        WaveArgIF arg = sharedWave.getArg("Amplitude");
         if(amplitudeCheckbox.isSelected()){
-            sharedWave.getArg("Amplitude").addObserver(this);
+            arg.addObserver(this);
+
+            if(arg.getValue() != 0){
+                this.updateAmpOutput(arg.toString());
+                amplitudeSlider.setValue((int) (arg.getValue() * 10));
+                localWave.plotWave(arg);
+                viewerPanel.repaint();
+            }
         }
         else{
-            sharedWave.getArg("Amplitude").removeObserver(this);
+            arg.removeObserver(this);
         }
     }//GEN-LAST:event_amplitudeCheckboxActionPerformed
 
     private void frequencyCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyCheckboxActionPerformed
         // TODO add your handling code here:
-        if(amplitudeCheckbox.isSelected()){
-            sharedWave.getArg("Frequency").addObserver(this);
+        WaveArgIF arg = sharedWave.getArg("Frequency");
+        if(frequencyCheckbox.isSelected()){
+            arg.addObserver(this);
+
+            if(arg.getValue() != 0){
+                this.updateFreqOutput(arg.toString());
+                frequencySlider.setValue((int) arg.getValue());
+                localWave.plotWave(arg);
+                viewerPanel.repaint();
+            }
         }
         else{
-            sharedWave.getArg("Frequency").removeObserver(this);
+            arg.removeObserver(this);
         }
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
     private void horizontalCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalCheckboxActionPerformed
         // TODO add your handling code here:
-        if(amplitudeCheckbox.isSelected()){
-            sharedWave.getArg("Horizontal Shift").addObserver(this);
+        WaveArgIF arg = sharedWave.getArg("Horizontal Shift");
+        if(horizontalCheckbox.isSelected()){
+            arg.addObserver(this);
+
+            System.out.println("Value: " + arg.getValue() + ", String: " + arg.toString());
+            if(arg.getValue() != 0){
+                this.updateHorizOutput(arg.toString());
+                int yeet = (int) (arg.getValue() * (((double) (100) * localWave.getData().get("Scale").getValue()) /  421));
+                horizontalSlider.setValue((int) (arg.getValue() * (((double) (100) * localWave.getData().get("Scale").getValue()) /  421)));
+                localWave.plotWave(arg);
+                viewerPanel.repaint();
+            }
         }
         else{
-            sharedWave.getArg("Horizontal Shift").removeObserver(this);
+            arg.removeObserver(this);
         }
     }//GEN-LAST:event_horizontalCheckboxActionPerformed
 
+    public void paintWithWorker(WaveArgIF arg){
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                localWave.plotWave(arg);
+                return null;
+            }
+
+            @Override
+            protected void done(){
+                viewerPanel.repaint();
+            }
+        };
+        worker.execute();
+    }
+
     @Override
     public void update(WaveArgIF argChanged) {
+        String type = argChanged.getType();
+        if(type.equals("Amplitude")){
+            this.updateAmpOutput(argChanged.toString());
+            amplitudeSlider.setValue((int) (argChanged.getValue() * 10));
+        }
+        else if(type.equals("Frequency")){
+            this.updateFreqOutput(argChanged.toString());
+            frequencySlider.setValue((int) argChanged.getValue());
+        }
+//        else if(type.equals("Horizontal Shift")){
+//            this.updateHorizOutput(argChanged.toString());
+//            horizontalSlider.setValue((int) (argChanged.getValue() * (((double) (100) * sharedWave.getData().get("Scale").getValue()) /  421)));
+//        }
         localWave.plotWave(argChanged);
         viewerPanel.repaint();
 //        System.out.println("Update yeet");
