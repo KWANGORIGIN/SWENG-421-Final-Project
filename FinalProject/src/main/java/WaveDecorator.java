@@ -28,6 +28,9 @@ public class WaveDecorator extends Wave{
 //        System.out.println("V: " + verticalShift);
 //        System.out.println("S: " + scale);
         this.sourceWave.drawWave(imageGraphics, data);
+
+
+
         /*
         this.drawWave(imageGraphics, data);
         this.ruler.plotRuler(this.sourceWave);

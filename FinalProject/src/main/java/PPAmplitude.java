@@ -21,7 +21,7 @@ public class PPAmplitude extends VerticalRuler {
 
         for (int i = 1; i < points.ypoints.length; i++)
         {
-            System.out.println(points.ypoints[i]);
+            //System.out.println(points.ypoints[i]);
             if (points.ypoints[i] > max); //note that greater than in this case means lower on the graph
             {
                 max = points.ypoints[i];
@@ -32,9 +32,9 @@ public class PPAmplitude extends VerticalRuler {
                 min = points.ypoints[i];
             }
         }
-
-        System.out.println(max);
-        System.out.println(min);
+//
+//        System.out.println(max);
+//        System.out.println(min);
 
        distance = max - min;
         yStart = min;

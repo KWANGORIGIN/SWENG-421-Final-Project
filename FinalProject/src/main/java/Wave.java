@@ -60,6 +60,8 @@ public abstract class Wave implements WaveIF{
     public void plotWave(WaveArgIF argChanged){
         //Resets image to black background
 
+        //WHY DOES THIS BREAK WITH THE DECORATOR OBJECT?????
+
         System.out.println("PLOTTING WAVE");
         double amplitude = data.get("Amplitude").getValue();
         int frequency = (int) data.get("Frequency").getValue();

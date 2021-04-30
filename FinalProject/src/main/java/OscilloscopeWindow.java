@@ -562,7 +562,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
-        WaveIF temp = localWave.cloneWave();
         this.compositeWave.addWave((WaveIF) localWave.cloneWave());
 
 
