@@ -39,9 +39,9 @@
                   <Component id="viewerPanel" min="-2" pref="442" max="-2" attributes="0"/>
                   <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="wavelengthCheckbox" min="-2" max="-2" attributes="0"/>
+                      <Component id="showWavelengthButton" min="-2" pref="212" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ppAmplitudeCheckbox" min="-2" max="-2" attributes="0"/>
+                      <Component id="ppAmplitudeToggleButton" min="-2" pref="224" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -204,8 +204,8 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="saveImageButton" alignment="1" pref="30" max="32767" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="wavelengthCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ppAmplitudeCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ppAmplitudeToggleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="showWavelengthButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="resetCompositeButton" max="32767" attributes="0"/>
               </Group>
@@ -343,22 +343,6 @@
         <Property name="text" type="java.lang.String" value="Scaling"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="wavelengthCheckbox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Show Wavelength"/>
-      </Properties>
-      <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="wavelengthCheckboxStateChanged"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="ppAmplitudeCheckbox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Show Peak to Peak Amplitude"/>
-      </Properties>
-      <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ppAmplitudeCheckboxStateChanged"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="observeLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -429,6 +413,25 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetCompositeButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="ppAmplitudeToggleButton">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Show Peak to Peak Amplitude"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ppAmplitudeToggleButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="showWavelengthButton">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Show Wavelength"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

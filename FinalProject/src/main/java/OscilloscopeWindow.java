@@ -105,8 +105,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         horizontalShiftLabel = new javax.swing.JLabel();
         verticalShiftLabel = new javax.swing.JLabel();
         scalingLabel = new javax.swing.JLabel();
-        wavelengthCheckbox = new javax.swing.JCheckBox();
-        ppAmplitudeCheckbox = new javax.swing.JCheckBox();
         observeLabel = new javax.swing.JLabel();
         frequencyCheckbox = new javax.swing.JCheckBox();
         parametersLabel = new javax.swing.JLabel();
@@ -115,6 +113,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         addToCompositeButton = new javax.swing.JButton();
         compositeToggleButton = new javax.swing.JToggleButton();
         resetCompositeButton = new javax.swing.JButton();
+        ppAmplitudeToggleButton = new javax.swing.JToggleButton();
+        showWavelengthButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
@@ -209,20 +209,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         scalingLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         scalingLabel.setText("Scaling");
 
-        wavelengthCheckbox.setText("Show Wavelength");
-        wavelengthCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                wavelengthCheckboxStateChanged(evt);
-            }
-        });
-
-        ppAmplitudeCheckbox.setText("Show Peak to Peak Amplitude");
-        ppAmplitudeCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                ppAmplitudeCheckboxStateChanged(evt);
-            }
-        });
-
         observeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         observeLabel.setText("Observe:");
 
@@ -270,6 +256,17 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             }
         });
 
+        ppAmplitudeToggleButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ppAmplitudeToggleButton.setText("Show Peak to Peak Amplitude");
+        ppAmplitudeToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppAmplitudeToggleButtonActionPerformed(evt);
+            }
+        });
+
+        showWavelengthButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        showWavelengthButton.setText("Show Wavelength");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,9 +277,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                     .addComponent(viewerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titleLabel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(wavelengthCheckbox)
+                        .addComponent(showWavelengthButton, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ppAmplitudeCheckbox)))
+                        .addComponent(ppAmplitudeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -406,8 +403,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(saveImageButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(wavelengthCheckbox)
-                        .addComponent(ppAmplitudeCheckbox))
+                        .addComponent(ppAmplitudeToggleButton)
+                        .addComponent(showWavelengthButton))
                     .addComponent(resetCompositeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -542,58 +539,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         }
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
-    private void ppAmplitudeCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ppAmplitudeCheckboxStateChanged
-        this.ppAmplitudeCheckbox.setEnabled(false);
-        // TODO add your handling code here:
-        if(ppAmplitudeCheckbox.isSelected() && ppAmplitudeCheckbox.isEnabled())
-        {
-            //System.out.println("Wrapped Wave1: ");
-            //System.out.println(((WaveDecorator)localWave).sourceWave);
-
-            System.out.println("new here?");
-//            WaveIF tempWave = localWave.cloneWave();
-//            System.out.println("temp: " + tempWave);
-            this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
-            System.out.println("new there");
-            viewerPanel.setWave(localWave);
-            viewerPanel.repaint();
-
-            System.out.println("Wrapped Wave: ");
-            System.out.println(((WaveDecorator)localWave).sourceWave);
-        }
-        else
-        {
-            //this.localWave = ((WaveDecorator) localWave).sourceWave;
-        }
-    }//GEN-LAST:event_ppAmplitudeCheckboxStateChanged
-
-    private void wavelengthCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_wavelengthCheckboxStateChanged
-        // TODO add your handling code here:
-
-        System.out.println(evt);
-        if(wavelengthCheckbox.isSelected() && wavelengthCheckbox.isEnabled())
-        {
-            this.wavelengthCheckbox.setEnabled(false);
-            //WaveIF tempWave = localWave.cloneWave();
-            //System.out.println("temp: " + tempWave);
-
-            this.localWave = new WaveDecorator(new Wavelength(), localWave);
-            viewerPanel.setWave(localWave);
-            System.out.println("boutta paint");
-            viewerPanel.repaint();
-
-            System.out.println("Wrapped Wave: ");
-            System.out.println(((WaveDecorator)localWave).sourceWave);
-
-
-
-        }
-        else
-        {
-           // this.localWave = ((WaveDecorator) localWave).sourceWave;
-        }
-    }//GEN-LAST:event_wavelengthCheckboxStateChanged
-
     private void saveImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveImageButtonActionPerformed
         // TODO add your handling code here:
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -644,6 +589,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void resetCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetCompositeButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_resetCompositeButtonActionPerformed
+
+    private void ppAmplitudeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppAmplitudeToggleButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ppAmplitudeToggleButtonActionPerformed
 
     public void paintWithWorker(WaveArgIF arg){
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -777,18 +726,18 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JTextField horizontalTextfield;
     private javax.swing.JLabel observeLabel;
     private javax.swing.JLabel parametersLabel;
-    private javax.swing.JCheckBox ppAmplitudeCheckbox;
+    private javax.swing.JToggleButton ppAmplitudeToggleButton;
     private javax.swing.JButton resetCompositeButton;
     private javax.swing.JButton saveImageButton;
     private javax.swing.JLabel scalingLabel;
     private javax.swing.JSlider scalingSlider;
     private javax.swing.JTextField scalingTextfield;
+    private javax.swing.JToggleButton showWavelengthButton;
     private javax.swing.JButton sineButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel verticalShiftLabel;
     private javax.swing.JSlider verticalSlider;
     private javax.swing.JTextField verticalTextfield;
     private WavePanel viewerPanel;
-    private javax.swing.JCheckBox wavelengthCheckbox;
     // End of variables declaration//GEN-END:variables
 }
