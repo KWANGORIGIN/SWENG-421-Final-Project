@@ -93,7 +93,7 @@ public class CompositeWave implements WaveIF{
 
     public void addWave(WaveIF addedWave)
     {
-        if(waves.size() > 5)
+        if(waves.size() == 5)
         {
             JOptionPane.showMessageDialog(null, "Wave cap reached!");
         }

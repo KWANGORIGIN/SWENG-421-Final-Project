@@ -600,6 +600,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
         if(ppAmplitudeToggleButton.isSelected())
         {
+            this.addToCompositeButton.setEnabled(false);
             System.out.println("new here?");
 //            WaveIF tempWave = localWave.cloneWave();
 //            System.out.println("temp: " + tempWave);
@@ -619,6 +620,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
             System.out.println(localWave);
+
+            if(!(localWave instanceof WaveDecorator))
+            {
+                this.addToCompositeButton.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_ppAmplitudeToggleButtonActionPerformed
 
@@ -627,6 +633,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         if(showWavelengthButton.isSelected())
         {
+            this.addToCompositeButton.setEnabled(false);
             this.localWave = new WaveDecorator(new Wavelength(), localWave);
             viewerPanel.setWave(localWave);
             System.out.println("boutta paint");
@@ -643,6 +650,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
             System.out.println(localWave);
+
+            if(!(localWave instanceof WaveDecorator))
+            {
+                this.addToCompositeButton.setEnabled(true);
+            }
         }
 
 
