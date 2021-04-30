@@ -244,6 +244,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         compositeToggleButton.setText("Show Composite Wave");
         compositeToggleButton.setEnabled(false);
+        resetCompositeButton.setEnabled(false);
         compositeToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 compositeToggleButtonActionPerformed(evt);
@@ -570,6 +571,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
         this.compositeWave.addWave(localWave.cloneWave());
         this.compositeToggleButton.setEnabled(true);
+        this.resetCompositeButton.setEnabled(true);
 
 
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
@@ -598,6 +600,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.localWave = this.compositeWave.getLast().cloneWave();
         this.addToCompositeButton.setEnabled(true);
         this.compositeToggleButton.setEnabled(false);
+        this.resetCompositeButton.setEnabled(false);
         this.compositeWave.clear();
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();

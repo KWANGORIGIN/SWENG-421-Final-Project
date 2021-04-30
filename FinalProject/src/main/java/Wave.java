@@ -14,8 +14,8 @@ public abstract class Wave implements WaveIF{
     public Wave(){
         data = new Hashtable<>();
 
-        AmpArg amplitude = new AmpArg(2);
-        FreqArg frequency = new FreqArg(2);
+        AmpArg amplitude = new AmpArg(0);
+        FreqArg frequency = new FreqArg(0);
         HorizArg horizontal = new HorizArg(0);
         VertArg vertical = new VertArg(0);
         ScaleArg scale = new ScaleArg(0.015);
