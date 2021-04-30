@@ -636,8 +636,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         {
             this.localWave = this.compositeWave.getLast().cloneWave();
             this.addToCompositeButton.setEnabled(true);
-            this.ppAmplitudeToggleButton.setEnabled(true);
-            this.showWavelengthButton.setEnabled(true);
+            enableDecorators();
         }
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();
@@ -654,9 +653,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.compositeWave.clear();
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();
-        this.showWavelengthButton.setEnabled(true);
-        this.ppAmplitudeToggleButton.setEnabled(true);
-        System.out.println("here");
+
+        this.enableDecorators();
 
     }//GEN-LAST:event_resetCompositeButtonActionPerformed
 
@@ -819,6 +817,16 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             this.compositeToggleButton.setEnabled(true);
         }
     }
+
+    public void enableDecorators()
+    {
+        if(!this.compositeToggleButton.isSelected())
+        {
+            this.showWavelengthButton.setEnabled(true);
+            this.ppAmplitudeToggleButton.setEnabled(true);
+        }
+
+    }
     public void resetControls()
     {
         this.updateAmpOutput(this.localWave.getArg("Amplitude").toString());
@@ -834,8 +842,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.verticalSlider.setValue((int) (this.localWave.getArg("Vertical Shift").getValue() / (301 / (double) 100 * localWave.getData().get("Scale").getValue())));
         this.scalingSlider.setValue((int) (this.localWave.getArg("Scale").getValue() / (0.0001)  / (1000.0 / 301)));
 
-        this.showWavelengthButton.setEnabled(true);
-        this.ppAmplitudeToggleButton.setEnabled(true);
+
+        this.enableDecorators();
     }
 
     /**
