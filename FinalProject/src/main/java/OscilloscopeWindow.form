@@ -432,6 +432,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Show Wavelength"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showWavelengthButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -266,6 +266,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         showWavelengthButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         showWavelengthButton.setText("Show Wavelength");
+        showWavelengthButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showWavelengthButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -593,6 +598,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void ppAmplitudeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppAmplitudeToggleButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ppAmplitudeToggleButtonActionPerformed
+
+    private void showWavelengthButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showWavelengthButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showWavelengthButtonActionPerformed
 
     public void paintWithWorker(WaveArgIF arg){
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
