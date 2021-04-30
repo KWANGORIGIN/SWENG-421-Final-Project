@@ -232,6 +232,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         });
 
         resetCompositeButton.setText("Reset Composite Wave");
+        resetCompositeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetCompositeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -558,6 +563,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
 
     }//GEN-LAST:event_compositeToggleButtonActionPerformed
+
+    private void resetCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetCompositeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetCompositeButtonActionPerformed
 
     public void paintWithWorker(WaveArgIF arg){
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {

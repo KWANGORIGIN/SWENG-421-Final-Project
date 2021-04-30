@@ -426,6 +426,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Reset Composite Wave"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetCompositeButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
