@@ -6,6 +6,7 @@ public class Wavelength extends HorizontalRuler{
     {
         super(10, 20);
         this.title = "Wavelength: ";
+        this.identifier = "Wavelength";
 //        this.xStart = 10;
 //        this.yStart = 20;
 //        this.yEnd = 20;

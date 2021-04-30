@@ -6,6 +6,7 @@ public class PPAmplitude extends VerticalRuler {
     {
         super(0, 5);
         this.title = "PPAmp: ";
+        this.identifier = "PPAmp";
 //        this.xStart = 5;
 //        this.xEnd = 5;
     }

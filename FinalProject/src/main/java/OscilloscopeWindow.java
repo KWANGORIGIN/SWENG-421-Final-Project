@@ -47,32 +47,32 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateVertOutput(localWave.getArg("Vertical Shift").toString());
         this.updateScaleOutput(localWave.getArg("Scale").toString());
 
-        Scanner reader = new Scanner(System.in);
-        reader.next();
-
-        //WaveIF tempWave = localWave.cloneWave();
-        //System.out.println("temp: " + tempWave);
-
-        this.localWave = new WaveDecorator(new Wavelength(), localWave);
-        viewerPanel.setWave(localWave);
-        System.out.println("boutta paint");
-        viewerPanel.repaint();
-
-        System.out.println("Wrapped Wave: ");
-        System.out.println(((WaveDecorator)localWave).sourceWave);
-
-        reader.next();
-
-        System.out.println("new here?");
-//            WaveIF tempWave = localWave.cloneWave();
-//            System.out.println("temp: " + tempWave);
-        this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
-        System.out.println("new there");
-        viewerPanel.setWave(localWave);
-        viewerPanel.repaint();
-
-        System.out.println("Wrapped Wave: ");
-        System.out.println(((WaveDecorator)localWave).sourceWave);
+//        Scanner reader = new Scanner(System.in);
+//        reader.next();
+//
+//        //WaveIF tempWave = localWave.cloneWave();
+//        //System.out.println("temp: " + tempWave);
+//
+//        this.localWave = new WaveDecorator(new Wavelength(), localWave);
+//        viewerPanel.setWave(localWave);
+//        System.out.println("boutta paint");
+//        viewerPanel.repaint();
+//
+//        System.out.println("Wrapped Wave: ");
+//        System.out.println(((WaveDecorator)localWave).sourceWave);
+//
+//        reader.next();
+//
+//        System.out.println("new here?");
+////            WaveIF tempWave = localWave.cloneWave();
+////            System.out.println("temp: " + tempWave);
+//        this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+//        System.out.println("new there");
+//        viewerPanel.setWave(localWave);
+//        viewerPanel.repaint();
+//
+//        System.out.println("Wrapped Wave: ");
+//        System.out.println(((WaveDecorator)localWave).sourceWave);
 
 
     }
@@ -593,14 +593,59 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void resetCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetCompositeButtonActionPerformed
         // TODO add your handling code here:
+        this.compositeWave.clear();
     }//GEN-LAST:event_resetCompositeButtonActionPerformed
 
     private void ppAmplitudeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppAmplitudeToggleButtonActionPerformed
         // TODO add your handling code here:
+        if(ppAmplitudeToggleButton.isSelected())
+        {
+            System.out.println("new here?");
+//            WaveIF tempWave = localWave.cloneWave();
+//            System.out.println("temp: " + tempWave);
+            this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+            System.out.println("new there");
+            viewerPanel.setWave(localWave);
+            viewerPanel.repaint();
+
+            System.out.println("Wrapped Wave: ");
+            System.out.println(((WaveDecorator)localWave).sourceWave);
+        }
+        else
+        {
+            System.out.println("here");
+            this.localWave = ((WaveDecorator) localWave).rewrap("PPAmp");
+            //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
+            viewerPanel.setWave(localWave);
+            viewerPanel.repaint();
+            System.out.println(localWave);
+        }
     }//GEN-LAST:event_ppAmplitudeToggleButtonActionPerformed
 
     private void showWavelengthButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showWavelengthButtonActionPerformed
         // TODO add your handling code here:
+
+        if(showWavelengthButton.isSelected())
+        {
+            this.localWave = new WaveDecorator(new Wavelength(), localWave);
+            viewerPanel.setWave(localWave);
+            System.out.println("boutta paint");
+            viewerPanel.repaint();
+
+            System.out.println("Wrapped Wave: ");
+            System.out.println(((WaveDecorator)localWave).sourceWave);
+        }
+        else
+        {
+            System.out.println("here");
+            this.localWave = ((WaveDecorator) localWave).rewrap("Wavelength");
+            //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
+            viewerPanel.setWave(localWave);
+            viewerPanel.repaint();
+            System.out.println(localWave);
+        }
+
+
     }//GEN-LAST:event_showWavelengthButtonActionPerformed
 
     public void paintWithWorker(WaveArgIF arg){

@@ -120,4 +120,9 @@ public class CompositeWave implements WaveIF{
     {
         return null;
     }
+
+    public void clear()
+    {
+        this.waves.clear();
+    }
 }

@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -126,5 +127,29 @@ public class WaveDecorator extends Wave{
         {
             return this.sourceWave;
         }
+    }
+
+    public WaveIF rewrap(String exclude)
+    {
+        WaveIF newWave = this.getRootWave();
+        //WaveIF newWave;
+
+        WaveIF iterator = this;
+        while(iterator instanceof WaveDecorator)
+        {
+            if(!(((WaveDecorator) iterator).getRuler().getIdentifier().equals(exclude)))
+            {
+                newWave = new WaveDecorator((((WaveDecorator) iterator).getRuler()), newWave);
+            }
+
+            iterator = ((WaveDecorator) iterator).sourceWave;
+//            ((WaveDecorator) iterator).ruler.plotRuler(getRootWave());
+//            iterator = ((WaveDecorator) iterator).sourceWave;
+        }
+
+        newWave.getWaveImage();
+        newWave.plotWave(new AmpArg(this.getRootWave().getArg("Amplitude").getValue()));
+
+        return newWave;
     }
 }

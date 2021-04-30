@@ -5,6 +5,7 @@ public abstract class AbstractRuler implements RulerIF{
     protected int xStart, xEnd;
     protected int yStart, yEnd;
     protected Color color;
+    protected String identifier;
 
     public AbstractRuler()
     {
@@ -15,6 +16,7 @@ public abstract class AbstractRuler implements RulerIF{
         yStart = 0;
         yEnd = 0;
         color = Color.WHITE;
+        identifier= "NO IDENTIFIER";
     }
 
     public AbstractRuler(String title)
@@ -41,6 +43,11 @@ public abstract class AbstractRuler implements RulerIF{
         System.out.println(" XStart: " + xStart + " YStart: " + yStart + " xEnd: " + xEnd + " yEnd: " + yEnd);
         g.drawPolyline(new int[] {xStart, xEnd}, new int[] {yStart, yEnd}, 2);
         this.drawTitle(g);
+    }
+
+    public String getIdentifier()
+    {
+        return this.identifier;
     }
 
     protected abstract void drawTitle(Graphics g);
