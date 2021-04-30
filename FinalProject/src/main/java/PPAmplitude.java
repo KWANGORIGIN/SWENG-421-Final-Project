@@ -4,9 +4,10 @@ public class PPAmplitude extends VerticalRuler {
 
     public PPAmplitude()
     {
+        super(0, 5);
         this.title = "PPAmp: ";
-        this.xStart = 5;
-        this.xEnd = 5;
+//        this.xStart = 5;
+//        this.xEnd = 5;
     }
 
     @Override

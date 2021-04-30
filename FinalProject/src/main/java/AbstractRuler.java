@@ -25,7 +25,7 @@ public abstract class AbstractRuler implements RulerIF{
     //call from drawing function to actually plot the ruler
     public void plotRuler(WaveIF sourceWave)
     {
-        System.out.println("HERE PLOT");
+       // System.out.println("HERE PLOT");
 
         if(sourceWave instanceof WaveDecorator)
         {

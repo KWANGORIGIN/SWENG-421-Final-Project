@@ -4,9 +4,10 @@ public abstract class VerticalRuler extends AbstractRuler{
     public VerticalRuler()
     {}
 
-    public VerticalRuler(String title)
+    public VerticalRuler(int yStart, int xLevel)
     {
-        super(title);
+        this.yStart = yStart;
+        this.xStart = this.xEnd = xLevel;
     }
 
     

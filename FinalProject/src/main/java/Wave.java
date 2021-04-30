@@ -62,7 +62,7 @@ public abstract class Wave implements WaveIF{
 
         //WHY DOES THIS BREAK WITH THE DECORATOR OBJECT?????
 
-        System.out.println("PLOTTING WAVE");
+        //System.out.println("PLOTTING WAVE");
         double amplitude = data.get("Amplitude").getValue();
         int frequency = (int) data.get("Frequency").getValue();
         double scale = data.get("Scale").getValue();

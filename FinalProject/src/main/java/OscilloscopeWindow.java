@@ -523,10 +523,16 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
             System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
         }
+        else
+        {
+            //this.localWave = ((WaveDecorator) localWave).sourceWave;
+        }
     }//GEN-LAST:event_ppAmplitudeCheckboxStateChanged
 
     private void wavelengthCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_wavelengthCheckboxStateChanged
         // TODO add your handling code here:
+
+        System.out.println(evt);
         if(wavelengthCheckbox.isSelected())
         {
             this.localWave = new WaveDecorator(new Wavelength(), this.localWave.cloneWave());
@@ -536,6 +542,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             System.out.println(((WaveDecorator)localWave).sourceWave);
 
             System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
+        }
+        else
+        {
+            //this.localWave = ((WaveDecorator) localWave).sourceWave;
         }
     }//GEN-LAST:event_wavelengthCheckboxStateChanged
 
