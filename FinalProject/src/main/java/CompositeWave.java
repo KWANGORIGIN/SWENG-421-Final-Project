@@ -1,5 +1,6 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -89,7 +90,15 @@ public class CompositeWave implements WaveIF{
 
     public void addWave(WaveIF addedWave)
     {
-        this.waves.add(addedWave);
+        if(waves.size() < 5)
+        {
+            this.waves.add(addedWave);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Wave cap reached!");
+        }
+
     }
 
     public Polygon getPoints()
