@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
 
-public interface WaveIF {
+public interface WaveIF{
     WaveArgIF getArg(String arg);
     void changeArg(WaveArgIF arg);
     void plotWave(WaveArgIF argChanged);
@@ -10,4 +10,5 @@ public interface WaveIF {
     BufferedImage getWaveImage();
     Hashtable<String, WaveArgIF> getData();
     Polygon getPoints();
+    WaveIF cloneWave();
 }

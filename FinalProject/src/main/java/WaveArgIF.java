@@ -8,4 +8,5 @@ public interface WaveArgIF extends ObservableIF{
     void setShared();
     void clearShared();
     String toString();
+    WaveArgIF cloneArg();
 }

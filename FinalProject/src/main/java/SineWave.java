@@ -12,6 +12,16 @@ public class SineWave extends Wave{
         plotWave(new ScaleArg(0.015));
     }
 
+    public SineWave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
+        super(data, image, points);
+    }
+
+
+    @Override
+    public WaveIF cloneWave(){
+        return new SineWave(this.data, this.image, this.points);
+    }
+
     @Override
     public void drawWave(Graphics imageGraphics, Hashtable<String, WaveArgIF> data){
 

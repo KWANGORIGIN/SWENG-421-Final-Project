@@ -5,7 +5,7 @@ import java.util.Hashtable;
 
 import static java.lang.Math.sin;
 
-public abstract class Wave implements WaveIF {
+public abstract class Wave implements WaveIF{
     protected Hashtable<String, WaveArgIF> data;
     protected BufferedImage image;
     protected Polygon points;
@@ -27,6 +27,19 @@ public abstract class Wave implements WaveIF {
 
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
         points = new Polygon();
+    }
+
+    public Wave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
+        this.data = new Hashtable<String, WaveArgIF>();
+        this.data.put("Amplitude", data.get("Amplitude").cloneArg());
+        this.data.put("Frequency", data.get("Frequency").cloneArg());
+        this.data.put("Horizontal Shift", data.get("Horizontal Shift").cloneArg());
+        this.data.put("Vertical Shift", data.get("Vertical Shift").cloneArg());
+        this.data.put("Scale", data.get("Scale").cloneArg());
+        this.image = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics g = this.image.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        this.points = new Polygon(points.xpoints, points.ypoints, points.npoints);
     }
 
     @Override

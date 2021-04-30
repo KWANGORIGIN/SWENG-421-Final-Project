@@ -1,3 +1,5 @@
+import jdk.jshell.spi.ExecutionControl;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class CompositeWave implements WaveIF{
 
     public BufferedImage getWaveImage()
     {
+        Color colors [] = {Color.RED, Color.BLUE, Color.ORANGE, Color.YELLOW, Color.PINK};
         System.out.println("GETTING IMAGE");
         BufferedImage combined = new BufferedImage(420, 300, BufferedImage.TYPE_INT_ARGB);
 
@@ -61,15 +64,19 @@ public class CompositeWave implements WaveIF{
         Polygon tempPoints;
 
 //        g.drawImage(this.waves.get(0).getWaveImage(), 0, 0, null);
-        for(WaveIF w : this.waves)
-        {
-            tempPoints = w.getPoints();
 
-            imageGraphics.setColor(Color.red);
+        for(int i = 0; i < waves.size(); i++)
+        {
+            tempPoints = waves.get(i).getPoints();
+
+
+            imageGraphics.setColor(colors[i]);
             imageGraphics.drawPolyline(tempPoints.xpoints, tempPoints.ypoints, tempPoints.npoints);
 
+            System.out.println("Amplitude: " + waves.get(i).getArg("Amplitude"));
+            System.out.println("Amplitude: " + waves.get(i).getArg("Frequency"));
             System.out.println("Adding Image...");
-//            g.drawImage(w.getWaveImage(), 50, 50, null);
+            //imageGraphics.drawImage(w.getWaveImage(), 50, 50, null);
         }
 
         return combined;
@@ -93,5 +100,10 @@ public class CompositeWave implements WaveIF{
     public WaveIF getLast()
     {
         return this.waves.get((waves.size() - 1));
+    }
+
+    public WaveIF cloneWave()
+    {
+        return null;
     }
 }

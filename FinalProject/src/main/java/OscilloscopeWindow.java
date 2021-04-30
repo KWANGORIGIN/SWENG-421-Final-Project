@@ -36,6 +36,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         }
         localWave = new SineWave();
         viewerPanel.setWave(localWave);
+       // savedWave = new SineWave();
 
         this.updateAmpOutput(localWave.getArg("Amplitude").toString());
         this.updateFreqOutput(localWave.getArg("Frequency").toString());
@@ -82,6 +83,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         addToCompositeButton = new javax.swing.JButton();
         compositeToggleButton = new javax.swing.JToggleButton();
         compositeWave = new CompositeWave();
+
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -530,7 +532,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
-        this.compositeWave.addWave(this.localWave);
+        WaveIF temp = localWave.cloneWave();
+        this.compositeWave.addWave((WaveIF) localWave.cloneWave());
+
 
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
 
@@ -538,7 +542,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
         if(compositeToggleButton.isSelected())
         {
-            this.savedWave = this.localWave;
+            this.savedWave = (WaveIF) this.localWave.cloneWave();
             this.localWave = this.compositeWave;
         }
         else
