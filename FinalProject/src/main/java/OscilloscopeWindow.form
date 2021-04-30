@@ -81,7 +81,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="addToCompositeButton" max="32767" attributes="0"/>
-                          <Component id="showCompositeButton" max="32767" attributes="0"/>
+                          <Component id="compositeToggleButton" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="saveImageButton" max="32767" attributes="0"/>
@@ -190,9 +190,9 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="cosineButton" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="showCompositeButton" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cosineButton" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="compositeToggleButton" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -409,12 +409,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToCompositeButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="showCompositeButton">
+    <Component class="javax.swing.JToggleButton" name="compositeToggleButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Composite Wave"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showCompositeButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compositeToggleButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

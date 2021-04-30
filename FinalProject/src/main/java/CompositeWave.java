@@ -14,7 +14,7 @@ public class CompositeWave implements WaveIF{
     }
 
     public CompositeWave(WaveIF sourceWave)
-    {;
+    {
         this.waves = new ArrayList<WaveIF>();
         this.waves.add(sourceWave);
     }
@@ -88,5 +88,10 @@ public class CompositeWave implements WaveIF{
     public Polygon getPoints()
     {
         return null;
+    }
+
+    public WaveIF getLast()
+    {
+        return this.waves.get((waves.size() - 1));
     }
 }

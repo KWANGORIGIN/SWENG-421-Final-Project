@@ -5,9 +5,14 @@
  */
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,6 +21,8 @@ import java.lang.reflect.InvocationTargetException;
 public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF {
     protected volatile static WaveIF sharedWave;
     protected WaveIF localWave;
+    protected CompositeWave compositeWave;
+    protected WaveIF savedWave;
     private final Object updateLock = new Object();
 
     /**
@@ -46,7 +53,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-//        viewerPanel = new javax.swing.JPanel();
         viewerPanel = new WavePanel();
         amplitudeSlider = new javax.swing.JSlider(0, 100, 0);
         frequencySlider = new javax.swing.JSlider(0, 100, 0);
@@ -74,7 +80,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         titleLabel = new javax.swing.JLabel();
         saveImageButton = new javax.swing.JButton();
         addToCompositeButton = new javax.swing.JButton();
-        showCompositeButton = new javax.swing.JButton();
+        compositeToggleButton = new javax.swing.JToggleButton();
+        compositeWave = new CompositeWave();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
@@ -216,10 +224,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             }
         });
 
-        showCompositeButton.setText("Show Composite Wave");
-        showCompositeButton.addActionListener(new java.awt.event.ActionListener() {
+        compositeToggleButton.setText("Show Composite Wave");
+        compositeToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showCompositeButtonActionPerformed(evt);
+                compositeToggleButtonActionPerformed(evt);
             }
         });
 
@@ -267,7 +275,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addToCompositeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(showCompositeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(compositeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(saveImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,9 +357,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                                 .addComponent(addToCompositeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(1, 1, 1)))
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cosineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showCompositeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(compositeToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(saveImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,16 +509,47 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void saveImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveImageButtonActionPerformed
         // TODO add your handling code here:
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        File outputFile = new File("wave" + dtf.format(now) + ".png");
+        if(compositeToggleButton.isSelected()){
+            try{
+                ImageIO.write(compositeWave.getWaveImage(), "png", outputFile);
+            }catch(IOException e){
+                System.out.println("Failed to save image...");
+            }
+        }
+        else{
+            try{
+                ImageIO.write(localWave.getWaveImage(), "png", outputFile);
+            }catch(IOException e){
+                System.out.println("Failed to save image...");
+            }
+        }
     }//GEN-LAST:event_saveImageButtonActionPerformed
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
+        this.compositeWave.addWave(this.localWave);
 
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
 
-    private void showCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCompositeButtonActionPerformed
+    private void compositeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compositeToggleButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_showCompositeButtonActionPerformed
+        if(compositeToggleButton.isSelected())
+        {
+            this.savedWave = this.localWave;
+            this.localWave = this.compositeWave;
+        }
+        else
+        {
+            this.localWave = this.savedWave;
+        }
+        this.viewerPanel.setWave(this.localWave);
+        viewerPanel.repaint();
+
+
+    }//GEN-LAST:event_compositeToggleButtonActionPerformed
 
     public void paintWithWorker(WaveArgIF arg){
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -631,6 +670,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JLabel amplitudeLabel;
     private javax.swing.JSlider amplitudeSlider;
     private javax.swing.JTextField amplitudeTextfield;
+    private javax.swing.JToggleButton compositeToggleButton;
     private javax.swing.JButton cosineButton;
     private javax.swing.JCheckBox frequencyCheckbox;
     private javax.swing.JLabel frequencyLabel;
@@ -646,7 +686,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JLabel scalingLabel;
     private javax.swing.JSlider scalingSlider;
     private javax.swing.JTextField scalingTextfield;
-    private javax.swing.JButton showCompositeButton;
     private javax.swing.JButton sineButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel verticalShiftLabel;

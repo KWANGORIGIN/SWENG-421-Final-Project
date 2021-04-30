@@ -48,12 +48,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
 //        viewerPanel = new javax.swing.JPanel();
         viewerPanel = new WavePanel();
-        periodTextfield = new javax.swing.JTextField();
-        wavelengthTextfield = new javax.swing.JTextField();
-        amplitudeSlider = new javax.swing.JSlider();
-        frequencySlider = new javax.swing.JSlider();
-        horizontalSlider = new javax.swing.JSlider();
-        verticalSlider = new javax.swing.JSlider();
+        amplitudeSlider = new javax.swing.JSlider(0, 100, 0);
+        frequencySlider = new javax.swing.JSlider(0, 100, 0);
+        horizontalSlider = new javax.swing.JSlider(-50, 50, 0);
+        verticalSlider = new javax.swing.JSlider(-50, 50, 0);
         amplitudeTextfield = new javax.swing.JTextField();
         frequencyTextfield = new javax.swing.JTextField();
         verticalTextfield = new javax.swing.JTextField();
@@ -61,21 +59,22 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         cosineButton = new javax.swing.JButton();
         amplitudeCheckbox = new javax.swing.JCheckBox();
         amplitudeLabel = new javax.swing.JLabel();
-        scalingSlider = new javax.swing.JSlider();
+        scalingSlider = new javax.swing.JSlider(0, 250, 42);
         scalingTextfield = new javax.swing.JTextField();
         horizontalTextfield = new javax.swing.JTextField();
         frequencyLabel = new javax.swing.JLabel();
         horizontalShiftLabel = new javax.swing.JLabel();
         verticalShiftLabel = new javax.swing.JLabel();
         scalingLabel = new javax.swing.JLabel();
-        periodLabel = new javax.swing.JLabel();
-        wavelengthLabel = new javax.swing.JLabel();
         wavelengthCheckbox = new javax.swing.JCheckBox();
         ppAmplitudeCheckbox = new javax.swing.JCheckBox();
         observeLabel = new javax.swing.JLabel();
         frequencyCheckbox = new javax.swing.JCheckBox();
-        horizontalCheckbox = new javax.swing.JCheckBox();
         parametersLabel = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        saveImageButton = new javax.swing.JButton();
+        addToCompositeButton = new javax.swing.JButton();
+        showCompositeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
