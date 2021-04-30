@@ -8,6 +8,7 @@ import static java.lang.Math.sin;
 public abstract class Wave implements WaveIF {
     protected Hashtable<String, WaveArgIF> data;
     protected BufferedImage image;
+    protected Polygon points;
 
     public Wave(){
         data = new Hashtable<>();
@@ -25,6 +26,7 @@ public abstract class Wave implements WaveIF {
         data.put(scale.getType(), scale);
 
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
+        points = new Polygon();
     }
 
     @Override
@@ -72,5 +74,10 @@ public abstract class Wave implements WaveIF {
     @Override
     public WaveArgIF getArg(String arg){
         return data.get(arg);
+    }
+
+    @Override
+    public Polygon getPoints(){
+        return this.points;
     }
 }

@@ -48,10 +48,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
 //        viewerPanel = new javax.swing.JPanel();
         viewerPanel = new WavePanel();
-        amplitudeSlider = new javax.swing.JSlider();
-        frequencySlider = new javax.swing.JSlider();
-        horizontalSlider = new javax.swing.JSlider();
-        verticalSlider = new javax.swing.JSlider();
+        amplitudeSlider = new javax.swing.JSlider(0, 100, 0);
+        frequencySlider = new javax.swing.JSlider(0, 100, 0);
+        horizontalSlider = new javax.swing.JSlider(-50, 50, 0);
+        verticalSlider = new javax.swing.JSlider(-50, 50, 0);
         amplitudeTextfield = new javax.swing.JTextField();
         frequencyTextfield = new javax.swing.JTextField();
         verticalTextfield = new javax.swing.JTextField();
@@ -59,7 +59,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         cosineButton = new javax.swing.JButton();
         amplitudeCheckbox = new javax.swing.JCheckBox();
         amplitudeLabel = new javax.swing.JLabel();
-        scalingSlider = new javax.swing.JSlider();
+        scalingSlider = new javax.swing.JSlider(0, 250, 42);
         scalingTextfield = new javax.swing.JTextField();
         horizontalTextfield = new javax.swing.JTextField();
         frequencyLabel = new javax.swing.JLabel();
@@ -380,7 +380,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             e.printStackTrace();
         }
 
-        System.out.println(arg.getType() + " " + value);
+//        System.out.println(arg.getType() + " " + value);
 
         if(checkmark){
             arg.setShared();
@@ -418,8 +418,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateHorizOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-            System.out.println("Horizontal source: " + source.getValue());
-            int sourceValue = source.getValue();
+//            System.out.println("Horizontal source: " + source.getValue());
+//            int sourceValue = source.getValue();
             paintWithWorker(arg);
         }
     }//GEN-LAST:event_horizontalSliderStateChanged
@@ -427,7 +427,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void verticalSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_verticalSliderStateChanged
         // TODO add your handling code here:
         JSlider source = (JSlider) evt.getSource();
-        VertArg arg = new VertArg(source.getValue() * (301 / (double) 100 * sharedWave.getData().get("Scale").getValue()));
+        VertArg arg = new VertArg(source.getValue() * (301 / (double) 100 * localWave.getData().get("Scale").getValue()));
 
         this.updateVertOutput(arg.toString());
 
@@ -505,6 +505,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
 
     private void showCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCompositeButtonActionPerformed
