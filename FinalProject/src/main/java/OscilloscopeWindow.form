@@ -38,37 +38,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="viewerPanel" min="-2" pref="442" max="-2" attributes="0"/>
                   <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="wavelengthCheckbox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="ppAmplitudeCheckbox" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="horizontalSlider" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="horizontalTextfield" min="-2" pref="49" max="-2" attributes="0"/>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="horizontalShiftLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="verticalSlider" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="verticalTextfield" min="-2" pref="49" max="-2" attributes="0"/>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="verticalShiftLabel" min="-2" pref="76" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="scalingSlider" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="scalingTextfield" min="-2" pref="49" max="-2" attributes="0"/>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="scalingLabel" min="-2" pref="76" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="wavelengthCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="ppAmplitudeCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="parametersLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="amplitudeSlider" min="-2" max="-2" attributes="0"/>
@@ -84,19 +63,56 @@
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="frequencyLabel" min="-2" pref="82" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="sineButton" alignment="0" min="-2" pref="341" max="-2" attributes="0"/>
-                          <Component id="cosineButton" alignment="0" min="-2" pref="341" max="-2" attributes="0"/>
+                          <Component id="parametersLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="saveImageButton" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="observeLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="frequencyCheckbox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="frequencyCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="amplitudeCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cosineButton" max="32767" attributes="0"/>
+                          <Component id="sineButton" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="addToCompositeButton" max="32767" attributes="0"/>
+                          <Component id="showCompositeButton" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="saveImageButton" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="scalingSlider" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="scalingTextfield" min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="scalingLabel" min="-2" pref="76" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="horizontalSlider" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="horizontalTextfield" min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="horizontalShiftLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="verticalSlider" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="verticalTextfield" min="-2" pref="49" max="-2" attributes="0"/>
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="verticalShiftLabel" min="-2" pref="76" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,39 +158,53 @@
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="horizontalSlider" min="-2" max="-2" attributes="0"/>
-                          <Component id="horizontalTextfield" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="horizontalShiftLabel" min="-2" pref="26" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="verticalSlider" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                              <Component id="verticalTextfield" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="horizontalSlider" min="-2" max="-2" attributes="0"/>
+                                  <Component id="horizontalTextfield" min="-2" pref="26" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="verticalSlider" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                      <Component id="verticalTextfield" min="-2" pref="26" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="verticalShiftLabel" min="-2" pref="26" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="scalingSlider" min="-2" max="-2" attributes="0"/>
+                                  <Component id="scalingTextfield" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="scalingLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="verticalShiftLabel" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="horizontalShiftLabel" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scalingSlider" min="-2" max="-2" attributes="0"/>
-                          <Component id="scalingTextfield" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="scalingLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="sineButton" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="addToCompositeButton" min="-2" pref="29" max="-2" attributes="0"/>
+                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="sineButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="saveImageButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="cosineButton" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="showCompositeButton" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="cosineButton" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="wavelengthCheckbox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="ppAmplitudeCheckbox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="saveImageButton" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="wavelengthCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ppAmplitudeCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -312,11 +342,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Wavelength"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="wavelengthCheckboxStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="ppAmplitudeCheckbox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Peak to Peak Amplitude"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ppAmplitudeCheckboxStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="observeLabel">
       <Properties>
@@ -361,6 +397,25 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SAVE IMAGE"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveImageButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="addToCompositeButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add to Composite"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToCompositeButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="showCompositeButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show Composite Wave"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showCompositeButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
