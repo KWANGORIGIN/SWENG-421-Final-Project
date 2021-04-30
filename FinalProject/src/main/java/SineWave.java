@@ -30,11 +30,12 @@ public class SineWave extends Wave{
         double horizontalShift = data.get("Horizontal Shift").getValue();
         double verticalShift = data.get("Vertical Shift").getValue();
 
-        Polygon wave = new Polygon();
+        //Polygon wave = new Polygon();
+        points.reset();
         for (int x = -210; x <= 210; x++) {
 //            wave.addPoint(x + 210, 150 - (int) (scale * Math.sin((x / 210.0) * 2 * Math.PI)));
             //wave.addPoint(((x + 210)), (int) (150 + (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
-            wave.addPoint(((x + 210)), (int) (150 + ((amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift) / scale)));
+            this.points.addPoint(((x + 210)), (int) (150 - ((amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift) / scale)));
             //wave.addPoint((int)((x - 210) * scale), (int) (150 - (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
 //            System.out.println("X: " + (x + 210) + ", Y: " + ((int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI))));
         }
@@ -43,7 +44,7 @@ public class SineWave extends Wave{
         imageGraphics.setColor(Color.green);
         imageGraphics.drawLine(0, 150, 420, 150);
         imageGraphics.setColor(Color.red);
-        imageGraphics.drawPolyline(wave.xpoints, wave.ypoints, wave.npoints);
+        imageGraphics.drawPolyline(this.points.xpoints, this.points.ypoints, this.points.npoints);
     }
 
     @Override

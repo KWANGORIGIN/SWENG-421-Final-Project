@@ -450,6 +450,9 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void sineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sineButtonActionPerformed
         // TODO add your handling code here:
+        this.localWave = new CompositeWave(this.localWave);
+        ((CompositeWave) this.localWave).addWave(new SineWave());
+        this.viewerPanel.setWave(localWave);
     }//GEN-LAST:event_sineButtonActionPerformed
 
     private void cosineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosineButtonActionPerformed

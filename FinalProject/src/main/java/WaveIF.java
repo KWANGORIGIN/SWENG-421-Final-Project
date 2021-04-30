@@ -9,4 +9,5 @@ public interface WaveIF {
     void drawWave(Graphics imageGraphics, Hashtable<String, WaveArgIF> data);
     BufferedImage getWaveImage();
     Hashtable<String, WaveArgIF> getData();
+    Polygon getPoints();
 }
