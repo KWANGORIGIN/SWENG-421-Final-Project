@@ -28,6 +28,10 @@ public class CompositeWave implements WaveIF{
         this.waves.get(this.waves.size() - 1).plotWave(argChanged);
         for(WaveIF w : this.waves)
         {
+            if(argChanged instanceof ScaleArg)
+            {
+                w.plotWave(argChanged);
+            }
             System.out.println("WaveInfo:\n Amplitude: " + w.getData().get("Amplitude"));
         }
     }
@@ -90,14 +94,16 @@ public class CompositeWave implements WaveIF{
 
     public void addWave(WaveIF addedWave)
     {
-        if(waves.size() < 5)
-        {
-            this.waves.add(addedWave);
-        }
-        else
+        if(waves.size() > 5)
         {
             JOptionPane.showMessageDialog(null, "Wave cap reached!");
         }
+        else
+        {
+            this.waves.add(addedWave);
+        }
+
+
 
     }
 

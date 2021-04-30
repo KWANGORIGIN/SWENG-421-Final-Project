@@ -35,6 +35,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             sharedWave = new SineWave();
         }
         localWave = new SineWave();
+        this.compositeWave = new CompositeWave();
         viewerPanel.setWave(localWave);
        // savedWave = new SineWave();
 
@@ -512,10 +513,30 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void ppAmplitudeCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ppAmplitudeCheckboxStateChanged
         // TODO add your handling code here:
+        if(ppAmplitudeCheckbox.isSelected())
+        {
+            this.localWave = new WaveDecorator(new PPAmplitude(), this.localWave.cloneWave());
+            viewerPanel.setWave(localWave);
+            viewerPanel.repaint();
+
+            System.out.println(((WaveDecorator)localWave).sourceWave);
+
+            System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
+        }
     }//GEN-LAST:event_ppAmplitudeCheckboxStateChanged
 
     private void wavelengthCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_wavelengthCheckboxStateChanged
         // TODO add your handling code here:
+        if(wavelengthCheckbox.isSelected())
+        {
+            this.localWave = new WaveDecorator(new Wavelength(), this.localWave.cloneWave());
+            viewerPanel.setWave(localWave);
+            viewerPanel.repaint();
+
+            System.out.println(((WaveDecorator)localWave).sourceWave);
+
+            System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
+        }
     }//GEN-LAST:event_wavelengthCheckboxStateChanged
 
     private void saveImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveImageButtonActionPerformed
@@ -551,12 +572,14 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
         if(compositeToggleButton.isSelected())
         {
-            this.savedWave = (WaveIF) this.localWave.cloneWave();
+            //this.savedWave = (WaveIF) this.localWave.cloneWave();
             this.localWave = this.compositeWave;
+            this.addToCompositeButton.setEnabled(false);
         }
         else
         {
-            this.localWave = this.savedWave;
+            this.localWave = this.compositeWave.getLast().cloneWave();
+            this.addToCompositeButton.setEnabled(true);
         }
         this.viewerPanel.setWave(this.localWave);
         viewerPanel.repaint();

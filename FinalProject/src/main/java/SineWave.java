@@ -14,6 +14,11 @@ public class SineWave extends Wave{
 
     public SineWave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
         super(data, image, points);
+
+//        System.out.println("ACLONE: " + this.getArg("Amplitude").getValue());
+//        System.out.println("FCLONE: " + this.getArg("Frequency").getValue());
+//        System.out.println("HCLONE: " + this.getArg("Horizontal Shift").getValue());
+//        System.out.println("VCLONE: " + this.getArg("Vertical Shift").getValue());
     }
 
 
@@ -24,6 +29,7 @@ public class SineWave extends Wave{
 
     @Override
     public void drawWave(Graphics imageGraphics, Hashtable<String, WaveArgIF> data){
+    System.out.println("DrawWave Sine Wave");
 
         //        //Logic for drawing wave itself
 //        double amplitude = data.get("Amplitude").getValue() / 10.0;
@@ -40,13 +46,18 @@ public class SineWave extends Wave{
         double horizontalShift = data.get("Horizontal Shift").getValue();
         double verticalShift = data.get("Vertical Shift").getValue();
 
+//        System.out.println("A: " + amplitude);
+//        System.out.println("F: " + frequency);
+//        System.out.println("H: " + horizontalShift);
+//        System.out.println("V: " + verticalShift);
+//        System.out.println("S: " + scale);
+
+
+
          this.points.reset();
         for (int x = -210; x <= 210; x++) {
-//            wave.addPoint(x + 210, 150 - (int) (scale * Math.sin((x / 210.0) * 2 * Math.PI)));
-            //wave.addPoint(((x + 210)), (int) (150 + (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
-            this.points.addPoint(((x + 210)), (int) (150 - ((amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift) / scale)));
-            //wave.addPoint((int)((x - 210) * scale), (int) (150 - (amplitude * sin(((x * scale) + horizontalShift)*frequency) + verticalShift)));
-//            System.out.println("X: " + (x + 210) + ", Y: " + ((int) (amplitude * Math.sin((x / 210.0) * 2 * Math.PI))));
+            this.points.addPoint(((x + 210)), (int) (150 - ((amplitude * sin(((x * scale) + horizontalShift)*frequency)
+                    + verticalShift) / scale)));
         }
 
         //Gets graphics for image and draws on it
@@ -58,6 +69,8 @@ public class SineWave extends Wave{
 
     @Override
     public BufferedImage getWaveImage() {
+        System.out.println(this.getArg("Amplitude").getValue());
+        System.out.println("HEREIMAGE");
         return this.image;
     }
 }

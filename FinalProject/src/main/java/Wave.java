@@ -9,15 +9,16 @@ public abstract class Wave implements WaveIF{
     protected Hashtable<String, WaveArgIF> data;
     protected BufferedImage image;
     protected Polygon points;
+    protected WaveIF sourceWave;
 
     public Wave(){
         data = new Hashtable<>();
 
-        AmpArg amplitude = new AmpArg(0);
-        FreqArg frequency = new FreqArg(0);
+        AmpArg amplitude = new AmpArg(2);
+        FreqArg frequency = new FreqArg(2);
         HorizArg horizontal = new HorizArg(0);
         VertArg vertical = new VertArg(0);
-        ScaleArg scale = new ScaleArg(0);
+        ScaleArg scale = new ScaleArg(0.015);
 
         data.put(amplitude.getType(), amplitude);
         data.put(frequency.getType(), frequency);
@@ -27,6 +28,7 @@ public abstract class Wave implements WaveIF{
 
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
         points = new Polygon();
+        System.out.println("NEW WAVE");
     }
 
     public Wave(Hashtable<String, WaveArgIF> data, BufferedImage image, Polygon points){
@@ -40,11 +42,38 @@ public abstract class Wave implements WaveIF{
         Graphics g = this.image.getGraphics();
         g.drawImage(image, 0, 0, null);
         this.points = new Polygon(points.xpoints, points.ypoints, points.npoints);
+
+//        double amplitude = data.get("Amplitude").getValue();
+//        int frequency = (int) data.get("Frequency").getValue();
+//        double scale = data.get("Scale").getValue();
+//        double horizontalShift = data.get("Horizontal Shift").getValue();
+//        double verticalShift = data.get("Vertical Shift").getValue();
+//
+//        System.out.println("\nA: " + amplitude);
+//        System.out.println("F: " + frequency);
+//        System.out.println("H: " + horizontalShift);
+//        System.out.println("V: " + verticalShift);
+//        System.out.println("S: " + scale);
     }
 
     @Override
     public void plotWave(WaveArgIF argChanged){
         //Resets image to black background
+
+        System.out.println("PLOTTING WAVE");
+        double amplitude = data.get("Amplitude").getValue();
+        int frequency = (int) data.get("Frequency").getValue();
+        double scale = data.get("Scale").getValue();
+        double horizontalShift = data.get("Horizontal Shift").getValue();
+        double verticalShift = data.get("Vertical Shift").getValue();
+
+        System.out.println("\nA: " + amplitude);
+        System.out.println("F: " + frequency);
+        System.out.println("H: " + horizontalShift);
+        System.out.println("V: " + verticalShift);
+        System.out.println("S: " + scale);
+
+        System.out.println(this);
         Graphics imageGraphics = image.getGraphics();
         imageGraphics.setColor(Color.black);
         imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
@@ -55,6 +84,9 @@ public abstract class Wave implements WaveIF{
 //        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
 
         //putting new argument into hashtable
+
+
+
         changeArg(argChanged);
 
         drawWave(imageGraphics, data);
@@ -66,6 +98,8 @@ public abstract class Wave implements WaveIF{
 
         //Cleans up Graphics from memory
         imageGraphics.dispose();
+
+
     }
 
     @Override
@@ -83,6 +117,7 @@ public abstract class Wave implements WaveIF{
         data.remove(arg.getType());
         data.put(arg.getType(), arg);
     }
+
 
     @Override
     public WaveArgIF getArg(String arg){
