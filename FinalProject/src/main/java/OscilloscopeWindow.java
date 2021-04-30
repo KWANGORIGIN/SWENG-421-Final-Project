@@ -243,6 +243,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         });
 
         compositeToggleButton.setText("Show Composite Wave");
+        compositeToggleButton.setEnabled(false);
         compositeToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 compositeToggleButtonActionPerformed(evt);
@@ -568,6 +569,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
         this.compositeWave.addWave(localWave.cloneWave());
+        this.compositeToggleButton.setEnabled(true);
 
 
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
@@ -593,7 +595,14 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void resetCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetCompositeButtonActionPerformed
         // TODO add your handling code here:
+        this.localWave = this.compositeWave.getLast().cloneWave();
+        this.addToCompositeButton.setEnabled(true);
+        this.compositeToggleButton.setEnabled(false);
         this.compositeWave.clear();
+        this.viewerPanel.setWave(this.localWave);
+        viewerPanel.repaint();
+        System.out.println("here");
+
     }//GEN-LAST:event_resetCompositeButtonActionPerformed
 
     private void ppAmplitudeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppAmplitudeToggleButtonActionPerformed
