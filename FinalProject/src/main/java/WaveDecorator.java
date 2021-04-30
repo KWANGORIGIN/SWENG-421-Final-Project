@@ -69,26 +69,41 @@ public class WaveDecorator extends Wave{
 
     @Override
     public BufferedImage getWaveImage() {
-        //System.out.println("HERE DECORATOR");
-        this.image = getRootWave().getWaveImage();
+        System.out.println("ROOT AND SOURCE");
+        System.out.println(this.getRootWave());
+        System.out.println(this.sourceWave);
+        System.out.println("END");
 
+//        if(sourceWave instanceof WaveDecorator)
+//        {
+
+        image = this.getRootWave().getWaveImage();
         WaveIF iterator = this;
         while(iterator instanceof WaveDecorator)
         {
-            ((WaveDecorator) iterator).ruler.plotRuler(((WaveDecorator) iterator).sourceWave);
+            ((WaveDecorator) iterator).ruler.plotRuler(getRootWave());
             iterator = ((WaveDecorator) iterator).sourceWave;
         }
-        System.out.println("Trying to plot a ruler...");
 
-        this.ruler.plotRuler(this.sourceWave);
 
-        //System.out.println("RETURNING IMAGE");
+//        else
+//        {
+//            image = sourceWave.getWaveImage();
+//            this.ruler.plotRuler(sourceWave);
+//        }
+        //System.out.println("HERE DECORATOR");
+        //this.image = sourceWave.getWaveImage();
+        //this.ruler.plotRuler(this.sourceWave);
         return this.image;
+
+
     }
 
     @Override
     public WaveIF cloneWave() {
-        return this.sourceWave.cloneWave();
+
+        return new WaveDecorator(this.ruler, sourceWave);
+        //return this.sourceWave.cloneWave();
     }
 
     public RulerIF getRuler()

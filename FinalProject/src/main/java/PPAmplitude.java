@@ -12,41 +12,45 @@ public class PPAmplitude extends VerticalRuler {
 
     @Override
     public void calculateEndpoint(WaveIF sourceWave) {
+        System.out.println("SourceWave: " + sourceWave.getPoints().xpoints.length + " " + sourceWave.getPoints().ypoints.length);
         Polygon points = sourceWave.getPoints();
         int[] yPoints = points.ypoints;
 
         int distance = 0;
-        int max = points.ypoints[0];
-        int min = points.ypoints[0];
+        int max = sourceWave.getPoints().ypoints[0];
+        int min = sourceWave.getPoints().ypoints[0];
 
 
-        for (int i = 1; i < points.ypoints.length; i++)
+        for (int i = 1; i < 420; i++)
         {
-            //System.out.println(points.ypoints[i]);
-            if (points.ypoints[i] > max); //note that greater than in this case means lower on the graph
+            System.out.println("in loop");
+            System.out.println(sourceWave.getPoints().ypoints[i]);
+            if (sourceWave.getPoints().ypoints[i] > max) //note that greater than in this case means lower on the graph
             {
-                max = points.ypoints[i];
+                max = sourceWave.getPoints().ypoints[i];
             }
 
-            if(points.ypoints[i] < min)
+            if(sourceWave.getPoints().ypoints[i] < min)
             {
-                min = points.ypoints[i];
+                min = sourceWave.getPoints().ypoints[i];
             }
         }
 //
-//        System.out.println(max);
-//        System.out.println(min);
+        System.out.println(max);
+        System.out.println(min);
 
-       distance = max - min;
+        distance = max - min;
         yStart = min;
-        yEnd = min + (2 * distance);
+        yEnd = min + distance;
+
+        System.out.println("HERE: " + distance);
 
         this.title = "PPAmp: " + (2 * sourceWave.getArg("Amplitude").getValue());
     }
 
     protected void drawTitle(Graphics g)
     {
-        g.setFont(new Font("Courier", Font.PLAIN, 12));
+        g.setFont(new Font("Courier", Font.PLAIN, 14));
         g.drawString(this.title, 15, 280);
     }
 }

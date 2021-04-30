@@ -29,13 +29,16 @@ public abstract class AbstractRuler implements RulerIF{
 
         if(sourceWave instanceof WaveDecorator)
         {
-            System.out.println("WHY");
+           // System.out.println("WHY");
+            return;
         }
 
         Graphics g = sourceWave.getWaveImage().getGraphics();
         g.setColor(color);
 
+        System.out.println(this);
         this.calculateEndpoint(sourceWave);
+        System.out.println(" XStart: " + xStart + " YStart: " + yStart + " xEnd: " + xEnd + " yEnd: " + yEnd);
         g.drawPolyline(new int[] {xStart, xEnd}, new int[] {yStart, yEnd}, 2);
         this.drawTitle(g);
     }

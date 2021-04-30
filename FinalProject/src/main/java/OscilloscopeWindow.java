@@ -13,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 /**
  *
@@ -23,6 +24,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     protected WaveIF localWave;
     protected CompositeWave compositeWave;
     protected WaveIF savedWave;
+    protected WaveDecorator attributeWave;
     private final Object updateLock = new Object();
 
     /**
@@ -44,6 +46,35 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateHorizOutput(localWave.getArg("Horizontal Shift").toString());
         this.updateVertOutput(localWave.getArg("Vertical Shift").toString());
         this.updateScaleOutput(localWave.getArg("Scale").toString());
+
+        Scanner reader = new Scanner(System.in);
+        reader.next();
+
+        //WaveIF tempWave = localWave.cloneWave();
+        //System.out.println("temp: " + tempWave);
+
+        this.localWave = new WaveDecorator(new Wavelength(), localWave);
+        viewerPanel.setWave(localWave);
+        System.out.println("boutta paint");
+        viewerPanel.repaint();
+
+        System.out.println("Wrapped Wave: ");
+        System.out.println(((WaveDecorator)localWave).sourceWave);
+
+        reader.next();
+
+        System.out.println("new here?");
+//            WaveIF tempWave = localWave.cloneWave();
+//            System.out.println("temp: " + tempWave);
+        this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+        System.out.println("new there");
+        viewerPanel.setWave(localWave);
+        viewerPanel.repaint();
+
+        System.out.println("Wrapped Wave: ");
+        System.out.println(((WaveDecorator)localWave).sourceWave);
+
+
     }
 
     /**
@@ -512,16 +543,23 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
     private void ppAmplitudeCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ppAmplitudeCheckboxStateChanged
+        this.ppAmplitudeCheckbox.setEnabled(false);
         // TODO add your handling code here:
-        if(ppAmplitudeCheckbox.isSelected())
+        if(ppAmplitudeCheckbox.isSelected() && ppAmplitudeCheckbox.isEnabled())
         {
-            this.localWave = new WaveDecorator(new PPAmplitude(), this.localWave.cloneWave());
+            //System.out.println("Wrapped Wave1: ");
+            //System.out.println(((WaveDecorator)localWave).sourceWave);
+
+            System.out.println("new here?");
+//            WaveIF tempWave = localWave.cloneWave();
+//            System.out.println("temp: " + tempWave);
+            this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+            System.out.println("new there");
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
 
+            System.out.println("Wrapped Wave: ");
             System.out.println(((WaveDecorator)localWave).sourceWave);
-
-            System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
         }
         else
         {
@@ -533,19 +571,26 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         // TODO add your handling code here:
 
         System.out.println(evt);
-        if(wavelengthCheckbox.isSelected())
+        if(wavelengthCheckbox.isSelected() && wavelengthCheckbox.isEnabled())
         {
-            this.localWave = new WaveDecorator(new Wavelength(), this.localWave.cloneWave());
+            this.wavelengthCheckbox.setEnabled(false);
+            //WaveIF tempWave = localWave.cloneWave();
+            //System.out.println("temp: " + tempWave);
+
+            this.localWave = new WaveDecorator(new Wavelength(), localWave);
             viewerPanel.setWave(localWave);
+            System.out.println("boutta paint");
             viewerPanel.repaint();
 
+            System.out.println("Wrapped Wave: ");
             System.out.println(((WaveDecorator)localWave).sourceWave);
 
-            System.out.println(((WaveDecorator) localWave).getSourceWave().getArg("Amplitude").getValue());
+
+
         }
         else
         {
-            //this.localWave = ((WaveDecorator) localWave).sourceWave;
+           // this.localWave = ((WaveDecorator) localWave).sourceWave;
         }
     }//GEN-LAST:event_wavelengthCheckboxStateChanged
 
@@ -572,7 +617,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
         // TODO add your handling code here:
-        this.compositeWave.addWave((WaveIF) localWave.cloneWave());
+        this.compositeWave.addWave(localWave.cloneWave());
 
 
     }//GEN-LAST:event_addToCompositeButtonActionPerformed
@@ -711,6 +756,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                 new OscilloscopeWindow().setVisible(true);
             }
         });
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

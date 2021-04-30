@@ -56,7 +56,7 @@ public class Wavelength extends HorizontalRuler{
         distance = (int) (420 / sourceWave.getArg("Frequency").getValue());
 
         this.title = "Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m";
-        //System.out.println("Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m");
+        System.out.println("Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m");
        // System.out.println(sourceWave.getArg("Frequency").getValue());
 
         if(distance > 0)
@@ -71,7 +71,7 @@ public class Wavelength extends HorizontalRuler{
     protected void drawTitle(Graphics g)
     {
         //System.out.println("drawing title");
-        g.setFont(new Font("Courier", Font.PLAIN, 12));
+        g.setFont(new Font("Courier", Font.PLAIN, 14));
         g.drawString(this.title, 5, 15);
     }
 

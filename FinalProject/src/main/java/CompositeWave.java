@@ -32,7 +32,6 @@ public class CompositeWave implements WaveIF{
             {
                 w.plotWave(argChanged);
             }
-            System.out.println("WaveInfo:\n Amplitude: " + w.getData().get("Amplitude"));
         }
     }
 
