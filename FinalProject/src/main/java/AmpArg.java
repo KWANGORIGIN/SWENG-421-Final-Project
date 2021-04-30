@@ -1,8 +1,10 @@
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 public class AmpArg extends WaveArg{
     public AmpArg(double value){
+        super(value);
         this.type = "Amplitude";
-        this.value = value;
-
         //Logic for string representation
     }
 }
