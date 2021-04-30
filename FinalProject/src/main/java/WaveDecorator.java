@@ -20,43 +20,6 @@ public class WaveDecorator extends Wave{
         System.out.println("PLOTTING WAVE");
         this.sourceWave.plotWave(argChanged);
 
-//        double amplitude = data.get("Amplitude").getValue();
-//        int frequency = (int) data.get("Frequency").getValue();
-//        double scale = data.get("Scale").getValue();
-//        double horizontalShift = data.get("Horizontal Shift").getValue();
-//        double verticalShift = data.get("Vertical Shift").getValue();
-//
-//        System.out.println("\nA: " + amplitude);
-//        System.out.println("F: " + frequency);
-//        System.out.println("H: " + horizontalShift);
-//        System.out.println("V: " + verticalShift);
-//        System.out.println("S: " + scale);
-//
-//        System.out.println(this);
-//        Graphics imageGraphics = image.getGraphics();
-//        imageGraphics.setColor(Color.black);
-//        imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-
-//        System.out.println("Plot wave being called...");
-//        System.out.println(argChanged.getType() + " " + argChanged.getValue());
-//
-//        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
-
-        //putting new argument into hashtable
-
-
-//
-//        changeArg(argChanged);
-//
-//        drawWave(imageGraphics, data);
-//
-//        if(!argChanged.hasChanged()){
-//            argChanged.setChanged();
-//            argChanged.notifyObservers(argChanged);
-//        }
-//
-//        //Cleans up Graphics from memory
-//        imageGraphics.dispose();
 
     }
 
@@ -108,6 +71,7 @@ public class WaveDecorator extends Wave{
     public BufferedImage getWaveImage() {
         //System.out.println("HERE DECORATOR");
         this.image = sourceWave.getWaveImage();
+        System.out.println("Trying to plot a ruler...");
         this.ruler.plotRuler(this.sourceWave);
 
         //System.out.println("RETURNING IMAGE");

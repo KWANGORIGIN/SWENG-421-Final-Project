@@ -40,7 +40,7 @@ public class PPAmplitude extends VerticalRuler {
         yStart = min;
         yEnd = min + (2 * distance);
 
-        this.title += (2 * sourceWave.getArg("Amplitude").getValue());
+        this.title = "PPAmp: " + (2 * sourceWave.getArg("Amplitude").getValue());
     }
 
     protected void drawTitle(Graphics g)
