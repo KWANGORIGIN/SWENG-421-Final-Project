@@ -12,9 +12,17 @@ public class Session implements Runnable{
     @Override
     public void run(){
         admin = new AdminWindow();
+        admin.setVisible(true);
         while(!admin.closed())
         {
+            try
+            {
+                Thread.sleep(10);
+            }
+            catch(InterruptedException e)
+            {
 
+            }
         }
         shutdown();
     }
@@ -23,6 +31,7 @@ public class Session implements Runnable{
     {
         ArrayList<OscilloscopeWindow> windows = admin.getOscilloscopes();
 
+        System.out.println("Running shutdown");
         for(OscilloscopeWindow w : windows)
         {
             w.saveImage();

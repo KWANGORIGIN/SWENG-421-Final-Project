@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -23,17 +24,6 @@ public class AdminWindow extends javax.swing.JFrame {
         initComponents();
         windows = new ArrayList<>();
         closed = false;
-        addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-
-                System.out.println("Closed");
-                ((OscilloscopeWindow) e.getWindow()).interrupt();
-                //e.getWindow().dispose();
-            }
-        });
     }
 
     /**
@@ -48,7 +38,7 @@ public class AdminWindow extends javax.swing.JFrame {
         instanceButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -95,12 +85,9 @@ public class AdminWindow extends javax.swing.JFrame {
         Runnable instanceRunnable = new Runnable(){
             @Override
             public void run(){
-
                 OscilloscopeWindow window = new OscilloscopeWindow();
-                Thread myThread = new Thread(new OscilloscopeWindow());
-                myThread.start();
-
-
+                windows.add(window);
+                window.setVisible(true);
             }
         };
 
@@ -110,6 +97,11 @@ public class AdminWindow extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
+        System.err.println("Closing?");
+        closed = true;
+        for(OscilloscopeWindow window : windows){
+            window.dispose();
+        }
     }//GEN-LAST:event_formWindowClosing
 
     public boolean closed(){

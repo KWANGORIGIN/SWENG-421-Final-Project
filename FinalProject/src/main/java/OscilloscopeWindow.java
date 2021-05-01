@@ -21,7 +21,7 @@ import java.util.Scanner;
  *
  * @author Kevin Wang
  */
-public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF, Runnable{
+public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF{
     protected volatile static WaveIF sharedWave;
     protected WaveIF localWave;
     protected CompositeWave compositeWave;
@@ -34,7 +34,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
      * Creates new form OscilloscopeWindow
      */
     public OscilloscopeWindow() {
-        myThread = new Thread(this);
         initComponents();
         this.setSize(1025, 500);
         if(sharedWave == null){
@@ -53,20 +52,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         compositeToggleButton.setEnabled(false);
         resetCompositeButton.setEnabled(false);
-
-        addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-
-                System.out.println("Closed");
-                ((OscilloscopeWindow) e.getWindow()).interrupt();
-                //e.getWindow().dispose();
-            }
-        });
-
-        myThread.start();
 
     }
 
@@ -577,7 +562,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
     public void saveImage(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         LocalDateTime now = LocalDateTime.now();
         File outputFile = new File("wave" + dtf.format(now) + ".png");
         if(compositeToggleButton.isSelected()){
@@ -905,33 +890,4 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void run() {
-        while(!myThread.isInterrupted())
-        {
-            //System.out.println("here");
-        }
-        this.shutdown();
-    }
-
-    public void shutdown()
-    {
-        System.out.println("Shutting Down..");
-        System.out.println(this);
-        //stuff
-        try
-        {
-            Thread.sleep(100);
-        }catch(InterruptedException e)
-        {
-
-        }
-
-        this.dispose();
-    }
-
-    public void interrupt()
-    {
-        myThread.interrupt();
-    }
 }
