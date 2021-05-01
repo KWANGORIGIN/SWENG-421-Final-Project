@@ -21,7 +21,8 @@ public class Wavelength extends HorizontalRuler{
             return;
         }
 
-        distance = (int) (420 / sourceWave.getArg("Frequency").getValue());
+        distance = (int) ((420 / sourceWave.getArg("Frequency").getValue()) *
+                (0.015 / sourceWave.getArg("Scale").getValue()));
 
         this.title = "Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m";
         System.out.println("Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m");
