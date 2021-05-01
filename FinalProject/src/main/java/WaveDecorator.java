@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class WaveDecorator extends Wave{
-
+    protected WaveIF sourceWave;
     private RulerIF ruler;
 
 

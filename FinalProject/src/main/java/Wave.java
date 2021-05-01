@@ -11,7 +11,6 @@ public abstract class Wave implements WaveIF{
     protected Hashtable<String, WaveArgIF> data;
     protected BufferedImage image;
     protected Polygon points;
-    protected WaveIF sourceWave;
 
     public Wave(){
         data = new Hashtable<>();

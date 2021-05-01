@@ -29,6 +29,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     protected WaveDecorator attributeWave;
     private final Object updateLock = new Object();
     private Thread myThread;
+    private boolean saveImage;
 
     /**
      * Creates new form OscilloscopeWindow
@@ -566,6 +567,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
     public void saveImage(){
+        if(!saveImage)
+        {
+            return;
+        }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         LocalDateTime now = LocalDateTime.now();
         File outputFile = new File("wave" + dtf.format(now) + ".png");
@@ -675,15 +681,13 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             this.compositeToggleButton.setEnabled(false);
             this.localWave = new WaveDecorator(new Wavelength(), localWave);
             viewerPanel.setWave(localWave);
-            System.out.println("boutta paint");
             viewerPanel.repaint();
 
-            System.out.println("Wrapped Wave: ");
             System.out.println(((WaveDecorator)localWave).sourceWave);
         }
         else
         {
-            System.out.println("here");
+
             this.localWave = ((WaveDecorator) localWave).rewrap("Wavelength");
             //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
             viewerPanel.setWave(localWave);
@@ -702,6 +706,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
+        this.saveImage = false;
+
     }//GEN-LAST:event_formWindowClosing
 
     public void paintWithWorker(WaveArgIF arg){
@@ -747,7 +753,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     public void updateAmpOutput(String a)
     {
-        System.out.println("updateAmp");
         synchronized(updateLock)
         {
             this.amplitudeTextfield.setText(a);
@@ -801,11 +806,8 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     public void enableDecorators()
     {
-        if(!this.compositeToggleButton.isSelected() && !this.compositeToggleButton.isEnabled())
-        {
-            this.showWavelengthButton.setEnabled(true);
-            this.ppAmplitudeToggleButton.setEnabled(true);
-        }
+        this.showWavelengthButton.setEnabled(true);
+        this.ppAmplitudeToggleButton.setEnabled(true);
 
     }
     public void resetControls()
@@ -816,7 +818,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateVertOutput(this.localWave.getArg("Vertical Shift").toString());
         this.updateScaleOutput(this.localWave.getArg("Scale").toString());
 
-        System.out.println(this.localWave.getArg("Amplitude").getValue());
         this.amplitudeSlider.setValue((int) this.localWave.getArg("Amplitude").getValue() * 10);
         this.frequencySlider.setValue((int) this.localWave.getArg("Frequency").getValue());
         this.horizontalSlider.setValue((int) (this.localWave.getArg("Horizontal Shift").getValue() / (421 / (double) (100) * localWave.getData().get("Scale").getValue())));
