@@ -22,8 +22,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     protected volatile static WaveIF sharedWave;
     protected WaveIF localWave;
     protected CompositeWave compositeWave;
-    protected WaveIF savedWave;
-    protected WaveDecorator attributeWave;
     private final Object updateLock = new Object();
     private boolean saveImage = true;
 
@@ -39,7 +37,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         localWave = new SineWave();
         this.compositeWave = new CompositeWave();
         viewerPanel.setWave(localWave);
-       // savedWave = new SineWave();
 
         this.updateAmpOutput(localWave.getArg("Amplitude").toString());
         this.updateFreqOutput(localWave.getArg("Frequency").toString());
@@ -619,8 +616,27 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void resetCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetCompositeButtonActionPerformed
         // TODO add your handling code here:
-        this.localWave = this.compositeWave.getLast().cloneWave();
-        this.addToCompositeButton.setEnabled(true);
+
+        if(this.compositeToggleButton.isSelected())
+        {
+            this.localWave = this.compositeWave.getLast().cloneWave();
+            this.compositeToggleButton.setSelected(false);
+        }
+
+        if(this.showWavelengthButton.isSelected())
+        {
+            this.localWave = new WaveDecorator(new Wavelength(), localWave);
+        }
+
+        if(this.ppAmplitudeToggleButton.isSelected())
+        {
+            this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
+        }
+
+        if(!this.showWavelengthButton.isSelected() && !ppAmplitudeToggleButton.isSelected())
+        {
+            this.addToCompositeButton.setEnabled(true);
+        }
         this.compositeToggleButton.setEnabled(false);
         this.resetCompositeButton.setEnabled(false);
         this.compositeWave.clear();
