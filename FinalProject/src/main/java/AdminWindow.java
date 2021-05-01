@@ -49,6 +49,11 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         instanceButton.setText("Create Instance");
         instanceButton.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +107,10 @@ public class AdminWindow extends javax.swing.JFrame {
         Thread newWindow = new Thread(instanceRunnable);
         newWindow.start();
     }//GEN-LAST:event_instanceButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     public boolean closed(){
         return this.closed;
