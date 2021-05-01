@@ -1,3 +1,10 @@
+/**
+ * Cosine.java
+ * This is the class for the Cosine wave object
+ * @author William Hemminger
+ * 30 April 2021
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;

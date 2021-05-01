@@ -1,4 +1,9 @@
-import java.awt.*;
+/**
+ * VerticalRuler.java
+ * This is an abstract class that defines useful features for Vertical Rulers
+ * @author William Hemminger
+ * 30 April 2021
+ */
 
 public abstract class VerticalRuler extends AbstractRuler{
     public VerticalRuler()
@@ -9,11 +14,4 @@ public abstract class VerticalRuler extends AbstractRuler{
         this.yStart = yStart;
         this.xStart = this.xEnd = xLevel;
     }
-
-    
-//    protected void drawTitle(Graphics g)
-//    {
-//        g.setFont(new Font("Courier", Font.PLAIN, 12));
-//        g.drawString(this.title, this.xStart + 2, ((this.yEnd - this.yStart) / 2));
-//    }
 }

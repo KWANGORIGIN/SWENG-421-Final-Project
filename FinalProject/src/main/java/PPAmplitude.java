@@ -1,3 +1,10 @@
+/**
+ * PPAmplitude.java
+ * This is a ruler object to display the Peak to Peak amplitude on the drawn wave
+ * @author William Hemminger
+ * 30 April 2021
+ */
+
 import java.awt.*;
 
 public class PPAmplitude extends VerticalRuler {
@@ -7,15 +14,10 @@ public class PPAmplitude extends VerticalRuler {
         super(0, 5);
         this.title = "PPAmp: ";
         this.identifier = "PPAmp";
-//        this.xStart = 5;
-//        this.xEnd = 5;
     }
 
     @Override
     public void calculateEndpoint(WaveIF sourceWave) {
-        System.out.println("SourceWave: " + sourceWave.getPoints().xpoints.length + " " + sourceWave.getPoints().ypoints.length);
-        Polygon points = sourceWave.getPoints();
-        int[] yPoints = points.ypoints;
 
         int distance = 0;
         int max = sourceWave.getPoints().ypoints[0];
@@ -37,19 +39,15 @@ public class PPAmplitude extends VerticalRuler {
                 }
             } catch(IndexOutOfBoundsException e)
             {
-                System.err.println("not enough data");
+                //array does not contain enough data
             }
 
         }
-//
-        System.out.println(max);
-        System.out.println(min);
+
 
         distance = max - min;
         yStart = min;
         yEnd = min + distance;
-
-        System.out.println("HERE: " + distance);
 
         this.title = "PPAmp: " + (2 * sourceWave.getArg("Amplitude").getValue());
     }

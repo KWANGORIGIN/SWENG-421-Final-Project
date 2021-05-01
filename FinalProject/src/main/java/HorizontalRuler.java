@@ -1,4 +1,9 @@
-import java.awt.*;
+/**
+ * HorizontalRuler.java
+ * This is an abstract class that defines useful features for Horizontal rulers
+ * @author William Hemminger
+ * 30 April 2021
+ */
 
 public abstract class HorizontalRuler extends AbstractRuler {
     public HorizontalRuler()
@@ -9,11 +14,4 @@ public abstract class HorizontalRuler extends AbstractRuler {
         this.xStart = xStart;
         this.yStart = this.yEnd = yLevel;
     }
-
-//    protected void drawTitle(Graphics g)
-//    {
-//        System.out.println("drawing title");
-//        g.setFont(new Font("Courier", Font.PLAIN, 12));
-//        g.drawString(this.title, 5, 15);
-//    }
 }

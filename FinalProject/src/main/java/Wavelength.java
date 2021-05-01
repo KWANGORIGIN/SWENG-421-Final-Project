@@ -1,3 +1,10 @@
+/**
+ * WaveLength.java
+ * This is a Ruler class to indicate the wavelength of the drawn wave
+ * @author William Hemminger
+ * 30 April 2021
+ */
+
 import java.awt.*;
 
 public class Wavelength extends HorizontalRuler{
@@ -11,7 +18,6 @@ public class Wavelength extends HorizontalRuler{
 
     @Override
     public void calculateEndpoint(WaveIF sourceWave) {
-        Polygon points = sourceWave.getPoints();
 
         int distance = 0;
         //System.out.println(sourceWave);
@@ -25,21 +31,16 @@ public class Wavelength extends HorizontalRuler{
                 (0.015 / sourceWave.getArg("Scale").getValue()));
 
         this.title = "Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m";
-        System.out.println("Wavelength: " + (299792458.0 / sourceWave.getArg("Frequency").getValue()) + "m");
-       // System.out.println(sourceWave.getArg("Frequency").getValue());
 
         if(distance > 0)
         {
-            System.out.println("distance: " + distance);
             this.xEnd = xStart + distance;
-
         }
 
     }
 
     protected void drawTitle(Graphics g)
     {
-        //System.out.println("drawing title");
         g.setFont(new Font("Courier", Font.PLAIN, 14));
         g.drawString(this.title, 5, 15);
     }

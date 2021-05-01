@@ -1,3 +1,10 @@
+/**
+ * AbstractRuler.java
+ * This is an abstract class that defines useful attributes for use in the Ruler subclasses, as well as functions
+ * @author William Hemminger
+ * 30 April 2021
+ */
+
 import java.awt.*;
 
 public abstract class AbstractRuler implements RulerIF{
@@ -27,20 +34,16 @@ public abstract class AbstractRuler implements RulerIF{
     //call from drawing function to actually plot the ruler
     public void plotRuler(WaveIF sourceWave)
     {
-       // System.out.println("HERE PLOT");
 
         if(sourceWave instanceof WaveDecorator)
         {
-           // System.out.println("WHY");
             return;
         }
 
         Graphics g = sourceWave.getWaveImage().getGraphics();
         g.setColor(color);
 
-        System.out.println(this);
         this.calculateEndpoint(sourceWave);
-        System.out.println(" XStart: " + xStart + " YStart: " + yStart + " xEnd: " + xEnd + " yEnd: " + yEnd);
         g.drawPolyline(new int[] {xStart, xEnd}, new int[] {yStart, yEnd}, 2);
         this.drawTitle(g);
     }

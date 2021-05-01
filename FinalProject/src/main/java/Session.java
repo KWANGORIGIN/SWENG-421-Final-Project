@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Session implements Runnable{
-    AdminWindow admin;
-    Thread sessionThread;
+    private AdminWindow admin;
+    private Thread sessionThread;
 
     public Session(){
         sessionThread = new Thread(this);
@@ -14,17 +14,7 @@ public class Session implements Runnable{
         admin = new AdminWindow(this);
         admin.setVisible(true);
         while(!sessionThread.interrupted())
-        {
-            //System.err.println(sessionThread.isInterrupted());
-//            try
-//            {
-//                Thread.sleep(10);
-//            }
-//            catch(InterruptedException e)
-//            {
-//
-//            }
-        }
+        { }
         shutdown();
     }
 
@@ -32,7 +22,7 @@ public class Session implements Runnable{
     {
         ArrayList<OscilloscopeWindow> windows = admin.getOscilloscopes();
 
-        System.out.println("Running shutdown");
+        System.out.println("System Shutdown");
         for(OscilloscopeWindow w : windows)
         {
             w.saveImage();
@@ -41,7 +31,6 @@ public class Session implements Runnable{
 
     public void interrupt()
     {
-        System.err.println("Interrupted");
         sessionThread.interrupt();
     }
 

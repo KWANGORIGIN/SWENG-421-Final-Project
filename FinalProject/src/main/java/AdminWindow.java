@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class AdminWindow extends javax.swing.JFrame {
     private Session session;
-    ArrayList<OscilloscopeWindow> windows;
+    private ArrayList<OscilloscopeWindow> windows;
 
     /**
      * Creates new form AdminWindow
@@ -101,7 +101,6 @@ public class AdminWindow extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        System.err.println("Closing?");
         for(OscilloscopeWindow window : windows){
             window.dispose();
         }

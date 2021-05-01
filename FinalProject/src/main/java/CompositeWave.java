@@ -1,4 +1,9 @@
-import jdk.jshell.spi.ExecutionControl;
+/**
+ * CompositeWave.java
+ * This class is a container for many different waves that can be drawn together
+ * @author William Hemminger
+ * 30 April 2021
+ */
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +58,6 @@ public class CompositeWave implements WaveIF{
     public BufferedImage getWaveImage()
     {
         Color colors [] = {Color.RED, Color.BLUE, Color.ORANGE, Color.YELLOW, Color.PINK};
-        System.out.println("GETTING IMAGE");
         BufferedImage combined = new BufferedImage(420, 300, BufferedImage.TYPE_INT_ARGB);
 
         Graphics imageGraphics = combined.getGraphics();
@@ -63,11 +67,7 @@ public class CompositeWave implements WaveIF{
         imageGraphics.setColor(Color.green);
         imageGraphics.drawLine(0, 150, 420, 150);
 
-
-        System.out.println("HERE");
         Polygon tempPoints;
-
-//        g.drawImage(this.waves.get(0).getWaveImage(), 0, 0, null);
 
         for(int i = 0; i < waves.size(); i++)
         {
@@ -76,11 +76,6 @@ public class CompositeWave implements WaveIF{
 
             imageGraphics.setColor(colors[i]);
             imageGraphics.drawPolyline(tempPoints.xpoints, tempPoints.ypoints, tempPoints.npoints);
-
-            System.out.println("Amplitude: " + waves.get(i).getArg("Amplitude"));
-            System.out.println("Amplitude: " + waves.get(i).getArg("Frequency"));
-            System.out.println("Adding Image...");
-            //imageGraphics.drawImage(w.getWaveImage(), 50, 50, null);
         }
 
         return combined;

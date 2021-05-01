@@ -78,7 +78,6 @@ public abstract class WaveArg implements WaveArgIF {
     }
 
     public void notifyObservers(WaveArgIF argChanged){
-//        System.out.println("Number of observers to notify: " + observers.size());
         for(ObserverIF o : observers){
             o.update(argChanged);
         }

@@ -7,15 +7,12 @@
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 /**
  *
@@ -28,8 +25,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     protected WaveIF savedWave;
     protected WaveDecorator attributeWave;
     private final Object updateLock = new Object();
-    private Thread myThread;
-    private boolean saveImage;
+    private boolean saveImage = true;
 
     /**
      * Creates new form OscilloscopeWindow
@@ -417,7 +413,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             e.printStackTrace();
         }
 
-//        System.out.println(arg.getType() + " " + value);
 
         if(checkmark){
             arg.setShared();
@@ -455,8 +450,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         this.updateHorizOutput(arg.toString());
 
         if(!source.getValueIsAdjusting()){
-//            System.out.println("Horizontal source: " + source.getValue());
-//            int sourceValue = source.getValue();
             paintWithWorker(arg);
         }
     }//GEN-LAST:event_horizontalSliderStateChanged
@@ -487,7 +480,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private void sineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sineButtonActionPerformed
         // TODO add your handling code here:
 
-            System.out.println("NEW SINE");
             //this.savedWave = (WaveIF) this.localWave.cloneWave();
             this.localWave = new SineWave();
             this.resetControls();
@@ -509,7 +501,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     private void cosineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cosineButtonActionPerformed
         // TODO add your handling code here:
-        System.out.println("NEW COSINE");
         //this.savedWave = (WaveIF) this.localWave.cloneWave();
         this.localWave = new CosineWave();
         this.resetControls();
@@ -538,7 +529,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             if(arg.getValue() != 0){
                 this.updateAmpOutput(arg.toString());
                 amplitudeSlider.setValue((int) (arg.getValue() * 10));
-                System.out.println(arg.toString());
                 localWave.plotWave(arg);
                 viewerPanel.repaint();
             }
@@ -647,22 +637,15 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         {
             this.addToCompositeButton.setEnabled(false);
             this.compositeToggleButton.setEnabled(false);
-//            WaveIF tempWave = localWave.cloneWave();
-//            System.out.println("temp: " + tempWave);
             this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
-
-            System.out.println("Wrapped Wave: ");
-            System.out.println(((WaveDecorator)localWave).sourceWave);
         }
         else
         {
             this.localWave = ((WaveDecorator) localWave).rewrap("PPAmp");
-            //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
-            System.out.println(localWave);
 
             if(!(localWave instanceof WaveDecorator))
             {
@@ -682,17 +665,13 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
             this.localWave = new WaveDecorator(new Wavelength(), localWave);
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
-
-            System.out.println(((WaveDecorator)localWave).sourceWave);
         }
         else
         {
 
             this.localWave = ((WaveDecorator) localWave).rewrap("Wavelength");
-            //this.localWave = ((WaveDecorator) this.localWave).getSourceWave();
             viewerPanel.setWave(localWave);
             viewerPanel.repaint();
-            System.out.println(localWave);
 
             if(!(localWave instanceof WaveDecorator))
             {
@@ -748,7 +727,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         localWave.plotWave(argChanged);
         viewerPanel.repaint();
-        //System.out.println("Update yeet");
     }
 
     public void updateAmpOutput(String a)

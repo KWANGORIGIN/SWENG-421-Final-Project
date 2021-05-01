@@ -29,7 +29,6 @@ public abstract class Wave implements WaveIF{
 
         image = new BufferedImage(420, 300, BufferedImage.TYPE_INT_RGB);
         points = new Polygon();
-        System.out.println("NEW WAVE");
 
         //this.plotWave(new AmpArg(0));
     }
@@ -45,36 +44,12 @@ public abstract class Wave implements WaveIF{
         Graphics g = this.image.getGraphics();
         g.drawImage(image, 0, 0, null);
         this.points = new Polygon(points.xpoints, points.ypoints, points.npoints);
-
-//        double amplitude = data.get("Amplitude").getValue();
-//        int frequency = (int) data.get("Frequency").getValue();
-//        double scale = data.get("Scale").getValue();
-//        double horizontalShift = data.get("Horizontal Shift").getValue();
-//        double verticalShift = data.get("Vertical Shift").getValue();
-//
-//        System.out.println("\nA: " + amplitude);
-//        System.out.println("F: " + frequency);
-//        System.out.println("H: " + horizontalShift);
-//        System.out.println("V: " + verticalShift);
-//        System.out.println("S: " + scale);
     }
 
     @Override
     public void plotWave(WaveArgIF argChanged){
         //Resets image to black background
-        double amplitude = data.get("Amplitude").getValue();
-        int frequency = (int) data.get("Frequency").getValue();
-        double scale = data.get("Scale").getValue();
-        double horizontalShift = data.get("Horizontal Shift").getValue();
-        double verticalShift = data.get("Vertical Shift").getValue();
 
-        System.out.println("\nA: " + amplitude);
-        System.out.println("F: " + frequency);
-        System.out.println("H: " + horizontalShift);
-        System.out.println("V: " + verticalShift);
-        System.out.println("S: " + scale);
-
-        System.out.println(this);
         Graphics imageGraphics = image.getGraphics();
         imageGraphics.setColor(Color.black);
         imageGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
@@ -82,17 +57,12 @@ public abstract class Wave implements WaveIF{
         imageGraphics.setColor(Color.green);
         imageGraphics.drawLine(0, 150, 420, 150);
 
-//        System.out.println("Plot wave being called...");
-//        System.out.println(argChanged.getType() + " " + argChanged.getValue());
-//
-//        System.out.println("Number of observers in argChanged: " + argChanged.getObservers().size());
 
         //putting new argument into hashtable
 
 
 
         changeArg(argChanged);
-        System.out.println("ArgChanged: " + argChanged.getValue());
 
         drawWave(imageGraphics, data);
 
@@ -113,7 +83,7 @@ public abstract class Wave implements WaveIF{
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    protected Object clone() throws CloneNotSupportedException{
         Wave wave = (Wave) super.clone();
 
         Hashtable<String, WaveArgIF> newData = new Hashtable<>();
@@ -145,7 +115,6 @@ public abstract class Wave implements WaveIF{
         if(arg.isShared() && data.get(arg.getType()).getObservers().size() != 0){
             ArrayList<ObserverIF> observers = data.get(arg.getType()).getObservers();
             arg.setObservers(observers);
-//            System.out.println("Observers: " + observers.size());
         }
         data.remove(arg.getType());
         data.put(arg.getType(), arg);
