@@ -94,11 +94,16 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         ppAmplitudeToggleButton = new javax.swing.JToggleButton();
         showWavelengthButton = new javax.swing.JToggleButton();
 
-        //setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
         setMaximumSize(new java.awt.Dimension(778, 436));
         setResizable(false);
         setSize(new java.awt.Dimension(778, 436));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         viewerPanel.setBackground(new java.awt.Color(255, 255, 255));
         viewerPanel.setPreferredSize(new java.awt.Dimension(420, 300));
@@ -394,7 +399,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         pack();
         setLocationRelativeTo(null);
-        this.setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void horizontalTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalTextfieldActionPerformed
@@ -696,6 +700,10 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     }//GEN-LAST:event_showWavelengthButtonActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
     public void paintWithWorker(WaveArgIF arg){
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -886,8 +894,6 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JSlider verticalSlider;
     private javax.swing.JTextField verticalTextfield;
     private WavePanel viewerPanel;
-
-
     // End of variables declaration//GEN-END:variables
 
 }
