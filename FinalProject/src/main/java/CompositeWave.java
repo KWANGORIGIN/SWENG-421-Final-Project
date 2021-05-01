@@ -102,8 +102,6 @@ public class CompositeWave implements WaveIF{
             this.waves.add(addedWave);
         }
 
-
-
     }
 
     public Polygon getPoints()

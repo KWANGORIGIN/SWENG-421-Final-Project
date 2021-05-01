@@ -7,6 +7,8 @@
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -19,18 +21,20 @@ import java.util.Scanner;
  *
  * @author Kevin Wang
  */
-public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF {
+public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF, Runnable{
     protected volatile static WaveIF sharedWave;
     protected WaveIF localWave;
     protected CompositeWave compositeWave;
     protected WaveIF savedWave;
     protected WaveDecorator attributeWave;
     private final Object updateLock = new Object();
+    private Thread myThread;
 
     /**
      * Creates new form OscilloscopeWindow
      */
     public OscilloscopeWindow() {
+        myThread = new Thread(this);
         initComponents();
         this.setSize(1025, 500);
         if(sharedWave == null){
@@ -49,41 +53,20 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         compositeToggleButton.setEnabled(false);
         resetCompositeButton.setEnabled(false);
-//        this.showWavelengthButton.setEnabled(false);
-//        this.ppAmplitudeToggleButton.setEnabled(false);
-//
-//        if(localWave != null)
-//        {
-//            this.shw
-//        }
 
-//        Scanner reader = new Scanner(System.in);
-//        reader.next();
-//
-//        //WaveIF tempWave = localWave.cloneWave();
-//        //System.out.println("temp: " + tempWave);
-//
-//        this.localWave = new WaveDecorator(new Wavelength(), localWave);
-//        viewerPanel.setWave(localWave);
-//        System.out.println("boutta paint");
-//        viewerPanel.repaint();
-//
-//        System.out.println("Wrapped Wave: ");
-//        System.out.println(((WaveDecorator)localWave).sourceWave);
-//
-//        reader.next();
-//
-//        System.out.println("new here?");
-////            WaveIF tempWave = localWave.cloneWave();
-////            System.out.println("temp: " + tempWave);
-//        this.localWave = new WaveDecorator(new PPAmplitude(), localWave);
-//        System.out.println("new there");
-//        viewerPanel.setWave(localWave);
-//        viewerPanel.repaint();
-//
-//        System.out.println("Wrapped Wave: ");
-//        System.out.println(((WaveDecorator)localWave).sourceWave);
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
 
+                System.out.println("Closed");
+                ((OscilloscopeWindow) e.getWindow()).interrupt();
+                //e.getWindow().dispose();
+            }
+        });
+
+        myThread.start();
 
     }
 
@@ -126,7 +109,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         ppAmplitudeToggleButton = new javax.swing.JToggleButton();
         showWavelengthButton = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 778, 436));
         setMaximumSize(new java.awt.Dimension(778, 436));
         setResizable(false);
@@ -426,6 +409,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
         pack();
         setLocationRelativeTo(null);
+        this.setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void horizontalTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalTextfieldActionPerformed
@@ -592,8 +576,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
         }
     }//GEN-LAST:event_frequencyCheckboxActionPerformed
 
-    private void saveImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveImageButtonActionPerformed
-        // TODO add your handling code here:
+    public void saveImage(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         File outputFile = new File("wave" + dtf.format(now) + ".png");
@@ -611,6 +594,11 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
                 System.out.println("Failed to save image...");
             }
         }
+    }
+
+    private void saveImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveImageButtonActionPerformed
+        // TODO add your handling code here:
+        saveImage();
     }//GEN-LAST:event_saveImageButtonActionPerformed
 
     private void addToCompositeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCompositeButtonActionPerformed
@@ -913,5 +901,37 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
     private javax.swing.JSlider verticalSlider;
     private javax.swing.JTextField verticalTextfield;
     private WavePanel viewerPanel;
+
+
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while(!myThread.isInterrupted())
+        {
+            //System.out.println("here");
+        }
+        this.shutdown();
+    }
+
+    public void shutdown()
+    {
+        System.out.println("Shutting Down..");
+        System.out.println(this);
+        //stuff
+        try
+        {
+            Thread.sleep(100);
+        }catch(InterruptedException e)
+        {
+
+        }
+
+        this.dispose();
+    }
+
+    public void interrupt()
+    {
+        myThread.interrupt();
+    }
 }

@@ -4,17 +4,36 @@
  * and open the template in the editor.
  */
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
 /**
  *
  * @author Kevin Wang
  */
 public class AdminWindow extends javax.swing.JFrame {
+    private boolean closed;
+    ArrayList<OscilloscopeWindow> windows;
 
     /**
      * Creates new form AdminWindow
      */
     public AdminWindow() {
         initComponents();
+        windows = new ArrayList<>();
+        closed = false;
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+
+                System.out.println("Closed");
+                ((OscilloscopeWindow) e.getWindow()).interrupt();
+                //e.getWindow().dispose();
+            }
+        });
     }
 
     /**
@@ -71,14 +90,26 @@ public class AdminWindow extends javax.swing.JFrame {
         Runnable instanceRunnable = new Runnable(){
             @Override
             public void run(){
+
                 OscilloscopeWindow window = new OscilloscopeWindow();
-                window.setVisible(true);
+                Thread myThread = new Thread(new OscilloscopeWindow());
+                myThread.start();
+
+
             }
         };
 
         Thread newWindow = new Thread(instanceRunnable);
         newWindow.start();
     }//GEN-LAST:event_instanceButtonActionPerformed
+
+    public boolean closed(){
+        return this.closed;
+    }
+
+    public ArrayList<OscilloscopeWindow> getOscilloscopes(){
+        return this.windows;
+    }
 
     /**
      * @param args the command line arguments
