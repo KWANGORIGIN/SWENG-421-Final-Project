@@ -14,16 +14,20 @@ import java.util.ArrayList;
  * @author Kevin Wang
  */
 public class AdminWindow extends javax.swing.JFrame {
-    private boolean closed;
+    private Session session;
     ArrayList<OscilloscopeWindow> windows;
 
     /**
      * Creates new form AdminWindow
      */
-    public AdminWindow() {
+    public AdminWindow(){
         initComponents();
+    }
+
+    public AdminWindow(Session session) {
+        initComponents();
+        this.session = session;
         windows = new ArrayList<>();
-        closed = false;
     }
 
     /**
@@ -98,15 +102,11 @@ public class AdminWindow extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         System.err.println("Closing?");
-        closed = true;
         for(OscilloscopeWindow window : windows){
             window.dispose();
         }
+        session.interrupt();
     }//GEN-LAST:event_formWindowClosing
-
-    public boolean closed(){
-        return this.closed;
-    }
 
     public ArrayList<OscilloscopeWindow> getOscilloscopes(){
         return this.windows;

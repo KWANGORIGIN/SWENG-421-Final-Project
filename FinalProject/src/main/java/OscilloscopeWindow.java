@@ -793,7 +793,7 @@ public class OscilloscopeWindow extends javax.swing.JFrame implements ObserverIF
 
     public void enableDecorators()
     {
-        if(!this.compositeToggleButton.isSelected())
+        if(!this.compositeToggleButton.isSelected() && !this.compositeToggleButton.isEnabled())
         {
             this.showWavelengthButton.setEnabled(true);
             this.ppAmplitudeToggleButton.setEnabled(true);

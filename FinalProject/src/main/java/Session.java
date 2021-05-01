@@ -11,18 +11,19 @@ public class Session implements Runnable{
 
     @Override
     public void run(){
-        admin = new AdminWindow();
+        admin = new AdminWindow(this);
         admin.setVisible(true);
-        while(!admin.closed())
+        while(!sessionThread.interrupted())
         {
-            try
-            {
-                Thread.sleep(10);
-            }
-            catch(InterruptedException e)
-            {
-
-            }
+            //System.err.println(sessionThread.isInterrupted());
+//            try
+//            {
+//                Thread.sleep(10);
+//            }
+//            catch(InterruptedException e)
+//            {
+//
+//            }
         }
         shutdown();
     }
@@ -37,6 +38,13 @@ public class Session implements Runnable{
             w.saveImage();
         }
     }
+
+    public void interrupt()
+    {
+        System.err.println("Interrupted");
+        sessionThread.interrupt();
+    }
+
     public static void main(String[] args) {
         Session currentSession = new Session();
     }
