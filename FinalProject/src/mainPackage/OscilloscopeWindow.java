@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 /**
  *
  * @author Kevin Wang
+ * @author William Hemminger
  */
 public class OscilloscopeWindow extends JFrame implements ObserverIF{
     protected volatile static WaveIF sharedWave;
