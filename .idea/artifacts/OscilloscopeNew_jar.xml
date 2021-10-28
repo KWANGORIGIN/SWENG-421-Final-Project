@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OscilloscopeNew:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OscilloscopeNew_jar</output-path>
+    <root id="archive" name="OscilloscopeNew.jar">
+      <element id="module-output" name="OscilloscopeNew" />
+    </root>
+  </artifact>
+</component>
